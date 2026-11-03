@@ -1,0 +1,126 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/* Design tokens from the CAC VOC design system (project/tokens.json).
+   Spacing is not listed: Tailwind's 4px scale already matches space-1 to space-32. */
+@theme {
+  /* Only brand colours are available, so off-palette classes won't compile. */
+  --color-*: initial;
+
+  --color-blue-50: #eef4ff;
+  --color-blue-100: #dbe7ff;
+  --color-blue-200: #bcd2ff;
+  --color-blue-300: #8db2ff;
+  --color-blue-400: #5a8cf7;
+  --color-blue-500: #2864f0;
+  --color-blue-600: #1e52d0;
+  --color-blue-700: #1a43a8;
+  --color-blue-800: #163680;
+  --color-blue-900: #102a56;
+  --color-blue-950: #0a1a38;
+  --color-gold-100: #fdf3dc;
+  --color-gold-300: #f3d38b;
+  --color-gold-500: #e8b94f;
+  --color-gold-700: #8a6410;
+  --color-coral-100: #ffe8e1;
+  --color-coral-500: #ff6b4a;
+  --color-coral-700: #b8391c;
+  --color-slate-100: #f3f6fb;
+  --color-slate-200: #d3def0;
+  --color-slate-300: #b8c3d6;
+  --color-slate-400: #7d8db0;
+  --color-slate-500: #5a6984;
+  --color-slate-700: #3b4a66;
+  --color-white: #ffffff;
+  --color-success: #12805c;
+  --color-error: #c8322b;
+
+  /* Brand aliases */
+  --color-ink: var(--color-blue-950);
+  --color-primary-blue: var(--color-blue-500);
+  --color-deep-blue: var(--color-blue-900);
+  --color-ice-blue: var(--color-blue-50);
+  --color-heritage-gold: var(--color-gold-500);
+  --color-youth-coral: var(--color-coral-500);
+
+  /* Surfaces, used as bg-bg, bg-bg-soft, bg-bg-dark */
+  --color-bg: var(--color-white);
+  --color-bg-soft: var(--color-blue-50);
+  --color-bg-dark: var(--color-blue-900);
+
+  /* Text, used as text-heading, text-body and so on */
+  --color-heading: var(--color-blue-900);
+  --color-body: var(--color-slate-700);
+  --color-muted: var(--color-slate-500);
+  --color-link: var(--color-blue-500);
+  --color-on-dark: var(--color-white);
+  --color-on-dark-muted: var(--color-blue-200);
+
+  /* Lines */
+  --color-border: var(--color-slate-200);
+  --color-border-control: var(--color-slate-400);
+  --color-focus-ring: var(--color-blue-500);
+
+  /* One family per job */
+  --font-display: Satoshi, "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-heading: Satoshi, "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-subheading: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-overline: Montserrat, system-ui, sans-serif;
+  --font-scripture: "Playfair Display", Georgia, serif;
+  --font-body: Inter, system-ui, sans-serif;
+  --font-ui: "DM Sans", Inter, system-ui, sans-serif;
+  --font-form: Manrope, Inter, system-ui, sans-serif;
+  --font-numeric: Sora, Inter, system-ui, sans-serif;
+  --font-badge: Poppins, Inter, system-ui, sans-serif;
+  --font-accent: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 6px rgba(16, 42, 86, 0.06);
+  --shadow-card: 0 8px 24px rgba(16, 42, 86, 0.08);
+  --shadow-lift: 0 16px 40px rgba(16, 42, 86, 0.14);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Type styles: each sets family, size, line height, weight and tracking together. */
+@utility type-hero { font-family: var(--font-display); font-size: 84px; line-height: 92px; font-weight: 800; letter-spacing: -0.035em; }
+@utility type-display { font-family: var(--font-display); font-size: 56px; line-height: 60px; font-weight: 800; letter-spacing: -0.03em; }
+@utility type-accent-wordmark { font-family: var(--font-accent); font-size: 200px; line-height: 170px; font-weight: 800; letter-spacing: -0.04em; }
+@utility type-accent-numeral { font-family: var(--font-accent); font-size: 96px; line-height: 96px; font-weight: 800; letter-spacing: -0.03em; }
+@utility type-h1 { font-family: var(--font-heading); font-size: 44px; line-height: 52px; font-weight: 700; letter-spacing: -0.02em; }
+@utility type-h2 { font-family: var(--font-heading); font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.015em; }
+@utility type-h3 { font-family: var(--font-heading); font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; }
+@utility type-h4 { font-family: var(--font-subheading); font-size: 20px; line-height: 28px; font-weight: 700; }
+@utility type-lead { font-family: var(--font-subheading); font-size: 18px; line-height: 28px; font-weight: 600; }
+@utility type-eyebrow { font-family: var(--font-overline); font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+@utility type-quote-lg { font-family: var(--font-scripture); font-size: 28px; line-height: 38px; font-weight: 500; font-style: italic; }
+@utility type-quote { font-family: var(--font-scripture); font-size: 20px; line-height: 30px; font-weight: 500; font-style: italic; }
+@utility type-body-lg { font-family: var(--font-body); font-size: 18px; line-height: 28px; font-weight: 400; }
+@utility type-body { font-family: var(--font-body); font-size: 16px; line-height: 26px; font-weight: 400; }
+@utility type-body-sm { font-family: var(--font-body); font-size: 14px; line-height: 22px; font-weight: 400; }
+@utility type-button { font-family: var(--font-ui); font-size: 15px; line-height: 20px; font-weight: 600; }
+@utility type-nav { font-family: var(--font-ui); font-size: 15px; line-height: 20px; font-weight: 500; }
+@utility type-input { font-family: var(--font-form); font-size: 16px; line-height: 24px; font-weight: 500; }
+@utility type-helper { font-family: var(--font-form); font-size: 13px; line-height: 18px; font-weight: 500; }
+@utility type-stat { font-family: var(--font-numeric); font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
+@utility type-datetime { font-family: var(--font-numeric); font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: 0.02em; }
+@utility type-badge { font-family: var(--font-badge); font-size: 12px; line-height: 16px; font-weight: 600; }
+@utility type-caption { font-family: var(--font-badge); font-size: 13px; line-height: 18px; font-weight: 500; }
