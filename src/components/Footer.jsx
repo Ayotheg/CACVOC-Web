@@ -7,6 +7,7 @@ import {
   serviceTimes,
   socialLinks,
 } from '../data/site'
+import { useLiveStatus } from '../live/liveStatus'
 import { Logo } from './Brand'
 import { ArrowRight, ArrowUp, ArrowUpRight, Mail, MapPin, Phone } from './icons'
 import Reveal from './Reveal'
@@ -21,6 +22,7 @@ function FooterHeading({ children, className = '' }) {
 }
 
 function FooterLink({ item }) {
+  const { isLive } = useLiveStatus()
   const className =
     'inline-flex items-center gap-2 font-ui text-sm leading-5 font-medium text-white transition-colors hover:text-gold-300'
 
@@ -42,9 +44,9 @@ function FooterLink({ item }) {
   return (
     <Link to={item.to} className={className}>
       {item.label}
-      {item.badge && (
+      {item.showLiveBadge && isLive && (
         <span className="rounded-pill bg-coral-500 px-2 py-0.5 font-badge text-[11px] leading-4 font-semibold text-white">
-          {item.badge}
+          Live
         </span>
       )}
     </Link>

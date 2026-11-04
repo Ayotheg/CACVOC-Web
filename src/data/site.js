@@ -12,8 +12,8 @@ import {
 
 /* TODO: replace with the church's real URLs. */
 export const externalLinks = {
-  youtube: '#',
-  facebook: '#',
+  youtube: 'https://www.youtube.com/@cacvoclagos',
+  facebook: 'https://www.facebook.com/100063915377767',
   instagram: '#',
   lekkiBranch: '#',
   directions: '#',
@@ -60,7 +60,7 @@ export const footerExplore = [
 ]
 
 export const footerWatchGive = [
-  { label: 'Livestream', to: '/live', badge: 'Live' },
+  { label: 'Livestream', to: '/#live', showLiveBadge: true },
   { label: 'YouTube teachings', mobileLabel: 'Teachings', href: externalLinks.youtube },
   { label: 'Support the church', to: '/give' },
   { label: 'Plan your visit', to: '/visit' },

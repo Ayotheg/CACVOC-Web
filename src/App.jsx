@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, Navigate } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
 import RootLayout from './layouts/RootLayout'
 import Home from './pages/Home'
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
       { path: 'gallery', element: <Placeholder title="Gallery" /> },
       { path: 'projects', element: <Placeholder title="Projects" /> },
       { path: 'contact', element: <Placeholder title="Contact" /> },
-      { path: 'live', element: <Placeholder title="Watch live" /> },
+      { path: 'live', element: <Navigate to="/#live" replace /> },
       { path: 'give', element: <Placeholder title="Give" /> },
       { path: 'visit', element: <Placeholder title="Plan your visit" /> },
       // Swap for the real 404 page once it is designed.

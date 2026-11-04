@@ -4,6 +4,7 @@ import AboutSection from '../components/AboutSection'
 import EventsSection from '../components/EventsSection'
 import GallerySection from '../components/GallerySection'
 import { ArrowRight, CirclePlay } from '../components/icons'
+import LivestreamSection from '../components/LivestreamSection'
 import Reveal from '../components/Reveal'
 
 const PHRASES = ['Welcome to Agbala Itura', 'Come and find rest', 'You belong here']
@@ -145,7 +146,7 @@ function Hero() {
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
           <Link
-            to="/live"
+            to="/#live"
             className="flex h-12 items-center justify-center gap-2 rounded-pill bg-white px-6 font-ui text-[15px] font-semibold text-heading transition-colors hover:bg-blue-100"
           >
             <CirclePlay aria-hidden="true" className="size-4" />
@@ -164,6 +165,7 @@ function Home() {
       <AboutSection />
       <GallerySection />
       <EventsSection />
+      <LivestreamSection />
     </>
   )
 }

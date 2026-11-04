@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight } from './icons'
 import Reveal from './Reveal'
@@ -139,7 +139,9 @@ function ScrollRows() {
   const topRowRef = useRef(null)
   const bottomRowRef = useRef(null)
 
-  useEffect(() => {
+  // A layout effect, so links to sections further down land correctly: the page's final height
+  // has to be set before the browser scrolls to them.
+  useLayoutEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
 
     const wrapper = wrapperRef.current

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { navLinks } from '../data/site'
+import { useLiveStatus } from '../live/liveStatus'
 import { Brand } from './Brand'
 import { ArrowUpRight, ChevronDown, Menu } from './icons'
 import LiveDot from './LiveDot'
@@ -76,6 +77,7 @@ function Navbar() {
   // section's tape takes over as the header. Other pages keep it fixed.
   const overHero = pathname === '/'
   const [menuOpen, setMenuOpen] = useState(false)
+  const { isLive } = useLiveStatus()
 
   return (
     <header
@@ -139,23 +141,25 @@ function Navbar() {
             Give
           </Link>
           <Link
-            to="/live"
+            to="/#live"
             className="flex h-10 items-center gap-1.5 rounded-pill bg-primary-blue px-4 font-ui text-sm font-semibold text-white transition-colors hover:bg-blue-600"
           >
-            <LiveDot />
+            {isLive && <LiveDot />}
             Watch live
           </Link>
         </div>
 
         <div className="flex items-center gap-2 xl:hidden">
-          {/* Dropped on the narrowest phones, where it won't fit. The menu has Watch live too. */}
-          <Link
-            to="/live"
-            className="flex h-11 items-center gap-1.5 rounded-pill bg-primary-blue pr-3.5 pl-2.5 font-ui text-sm font-semibold text-white max-[383px]:hidden"
-          >
-            <LiveDot />
-            Live
-          </Link>
+          {/* Only while live, and dropped on the narrowest phones, where it won't fit. */}
+          {isLive && (
+            <Link
+              to="/#live"
+              className="flex h-11 items-center gap-1.5 rounded-pill bg-primary-blue pr-3.5 pl-2.5 font-ui text-sm font-semibold text-white max-[383px]:hidden"
+            >
+              <LiveDot />
+              Live
+            </Link>
+          )}
           <button
             type="button"
             aria-label="Open menu"
