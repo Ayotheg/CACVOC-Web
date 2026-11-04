@@ -86,6 +86,11 @@
 }
 
 @layer base {
+  /* Keeps anchor targets clear of the fixed navbar. */
+  html {
+    scroll-padding-top: 84px;
+  }
+
   body {
     background-color: var(--color-bg);
     color: var(--color-body);
