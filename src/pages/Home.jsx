@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import AboutSection from '../components/AboutSection'
+import EventsSection from '../components/EventsSection'
 import GallerySection from '../components/GallerySection'
 import { ArrowRight, CirclePlay } from '../components/icons'
 import Reveal from '../components/Reveal'
@@ -162,6 +163,7 @@ function Home() {
       <Hero />
       <AboutSection />
       <GallerySection />
+      <EventsSection />
     </>
   )
 }
