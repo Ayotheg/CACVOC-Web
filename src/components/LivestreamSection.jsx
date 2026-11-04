@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { externalLinks, serviceTimes } from '../data/site'
+import { isHappeningNow, lagosNow, serviceVenue, weeklySchedule } from '../data/services'
+import { externalLinks } from '../data/site'
 import { splitStreamTitle, startedLabel, useLiveStatus } from '../live/liveStatus'
-import { Facebook, Youtube } from './icons'
+import { Facebook, MapPin, Youtube } from './icons'
 import LiveDot from './LiveDot'
 import Reveal from './Reveal'
 import SectionTape from './SectionTape'
@@ -10,8 +11,6 @@ const PLATFORMS = [
   { id: 'youtube', label: 'YouTube', channelLabel: 'Our YouTube channel', icon: Youtube },
   { id: 'facebook', label: 'Facebook', channelLabel: 'Our Facebook page', icon: Facebook },
 ]
-
-const todayCode = () => new Date().toLocaleDateString('en-GB', { weekday: 'short' }).toUpperCase()
 
 function embedUrl(platform, stream) {
   if (platform === 'youtube') return `https://www.youtube.com/embed/${stream.videoId}`
@@ -104,36 +103,76 @@ function WatchLinks({ status, isLive }) {
   )
 }
 
-function Schedule({ isLive }) {
-  const today = todayCode()
+function ServiceRow({ service, liveNow }) {
+  return (
+    <li className="flex items-center justify-between gap-3 py-2.5">
+      <span className="flex min-w-0 flex-col">
+        <span className="font-subheading text-sm leading-5 font-bold text-heading">
+          {service.name}
+        </span>
+        <span className="font-body text-xs leading-4.5 text-muted">{service.time}</span>
+      </span>
+      {liveNow && (
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-pill bg-coral-100 px-2.5 py-0.5 font-badge text-[11px] leading-4 font-semibold text-coral-700">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-coral-500" />
+          Live now
+        </span>
+      )}
+    </li>
+  )
+}
+
+function ServiceList({ day, services, isLive, now }) {
+  return (
+    <ul className="divide-y divide-border">
+      {services.map((service) => (
+        <ServiceRow
+          key={service.name}
+          service={service}
+          liveNow={isLive && isHappeningNow(day, service, now)}
+        />
+      ))}
+    </ul>
+  )
+}
+
+function TodaysServices({ isLive, now }) {
+  const today = weeklySchedule.find(({ day }) => day === now.day)
 
   return (
     <div>
-      <p className="type-eyebrow border-b border-border pb-2 text-[11px] tracking-[0.16em] text-muted">
-        Service schedule
-      </p>
-      <ul className="divide-y divide-border">
-        {serviceTimes.map((service) => (
-          <li key={service.name} className="flex items-center gap-3 py-3">
-            <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-sm bg-slate-100 font-numeric text-[11px] font-semibold text-heading">
-              {service.day}
-            </span>
-            <span className="min-w-0 flex-1 font-subheading text-sm leading-5 font-bold text-heading">
-              {service.name}
-            </span>
-            {isLive && service.day === today ? (
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-pill bg-coral-100 px-2.5 py-0.5 font-badge text-[11px] leading-4 font-semibold text-coral-700">
-                <span aria-hidden="true" className="size-1.5 rounded-full bg-coral-500" />
-                Live now
-              </span>
-            ) : (
-              <span className="shrink-0 font-numeric text-xs font-semibold text-muted">
-                {service.time}
-              </span>
-            )}
-          </li>
+      <h3 className="type-eyebrow border-b border-border pb-2 text-[11px] tracking-[0.16em] text-muted">
+        Today’s services
+      </h3>
+      {today ? (
+        <ServiceList day={today.day} services={today.services} isLive={isLive} now={now} />
+      ) : (
+        <p className="type-body-sm py-3 text-muted">No services scheduled today.</p>
+      )}
+    </div>
+  )
+}
+
+function WeeklySchedule({ isLive, now }) {
+  return (
+    <div className="mt-10 lg:mt-12">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h3 className="type-eyebrow tracking-[0.16em] text-muted">Service schedule</h3>
+        <p className="flex items-center gap-1.5 font-body text-[13px] leading-5 text-muted">
+          <MapPin aria-hidden="true" className="size-3.5 shrink-0" />
+          All services are held in the {serviceVenue}.
+        </p>
+      </div>
+      <div className="mt-4 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+        {weeklySchedule.map(({ day, dayName, services }) => (
+          <div key={day}>
+            <h4 className="border-b border-border pb-2 font-heading text-base leading-6 font-bold text-heading">
+              {dayName}
+            </h4>
+            <ServiceList day={day} services={services} isLive={isLive} now={now} />
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
@@ -141,6 +180,7 @@ function Schedule({ isLive }) {
 function LivestreamSection() {
   const { status, isLive } = useLiveStatus()
   const [choice, setChoice] = useState('youtube')
+  const now = lagosNow()
 
   const active = isLive && (status[choice] ? choice : PLATFORMS.find(({ id }) => status[id]).id)
   const stream = isLive ? status[active] : null
@@ -184,9 +224,13 @@ function LivestreamSection() {
           </Reveal>
           <Reveal delay={120} className="flex flex-col gap-5">
             <WatchLinks status={status} isLive={isLive} />
-            <Schedule isLive={isLive} />
+            <TodaysServices isLive={isLive} now={now} />
           </Reveal>
         </div>
+
+        <Reveal>
+          <WeeklySchedule isLive={isLive} now={now} />
+        </Reveal>
       </div>
     </section>
   )

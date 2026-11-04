@@ -68,9 +68,3 @@ export const footerWatchGive = [
 ]
 
 export const footerBranches = [{ label: 'CAC VOC Lekki', href: externalLinks.lekkiBranch }]
-
-export const serviceTimes = [
-  { day: 'SUN', name: '[Sunday service]', time: '[8am]' },
-  { day: 'Jigbare', name: '[Midweek service]', time: '[TIME]' },
-  { day: '[DAY]', name: '[Prayer meeting]', time: '[TIME]' },
-]

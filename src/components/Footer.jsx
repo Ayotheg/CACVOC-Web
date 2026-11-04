@@ -4,9 +4,9 @@ import {
   footerBranches,
   footerExplore,
   footerWatchGive,
-  serviceTimes,
   socialLinks,
 } from '../data/site'
+import { footerServices } from '../data/services'
 import { useLiveStatus } from '../live/liveStatus'
 import { Logo } from './Brand'
 import { ArrowRight, ArrowUp, ArrowUpRight, Mail, MapPin, Phone } from './icons'
@@ -212,7 +212,7 @@ function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <FooterHeading>Service times</FooterHeading>
             <ul className="mt-4 flex flex-col gap-3">
-              {serviceTimes.map((service) => (
+              {footerServices.map((service) => (
                 <li key={service.name} className="flex items-center gap-3">
                   <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-sm bg-blue-800 font-numeric text-xs font-semibold text-white">
                     {service.day}
