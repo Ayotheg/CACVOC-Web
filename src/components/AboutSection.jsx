@@ -1,29 +1,24 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight, CirclePlay, X } from './icons'
+import Reveal from './Reveal'
 import SectionTape from './SectionTape'
 
-/* True once the element has come 40% up the screen, and for the rest of the page below it.
-   Reads the position on every scroll, because an IntersectionObserver misses a jump that
-   skips straight past the element, such as going from the page end to the top. */
-function useScrolledTo(ref) {
-  const [reached, setReached] = useState(false)
+/* True once the hero's bottom edge, where About starts, has come 40% up the screen, and for the
+   rest of the page below it. Watches the hero against the lower part of the screen, so a jump
+   from the page end to the top still registers, without any work on each scroll. */
+function usePastHero() {
+  const [past, setPast] = useState(false)
 
   useEffect(() => {
-    const element = ref.current
-    const update = () => setReached(element.getBoundingClientRect().top < window.innerHeight * 0.6)
+    const observer = new IntersectionObserver(([entry]) => setPast(!entry.isIntersecting), {
+      rootMargin: '-60% 0px 0px 0px',
+    })
+    observer.observe(document.getElementById('hero'))
+    return () => observer.disconnect()
+  }, [])
 
-    update()
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
-
-    return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
-    }
-  }, [ref])
-
-  return reached
+  return past
 }
 
 /* Fixed to the screen from the About section to the end of the page, on large screens.
@@ -86,7 +81,7 @@ function Portraits() {
 
       <figure className="absolute right-0 bottom-0 h-[44%] w-[46%] overflow-hidden rounded-lg border-4 border-white bg-slate-100 shadow-lift lg:w-[38%] lg:border-6">
         <img
-          src="/bishop-isaac.jpg"
+          src="/bishop-isaac.webp"
           alt="Portrait of Bishop Isaac Abiara in glasses and a brown checked blazer"
           loading="lazy"
           className="size-full object-cover object-[center_25%]"
@@ -106,15 +101,14 @@ function Portraits() {
 
 function AboutSection() {
   const [videoState, setVideoState] = useState('default')
-  const sectionRef = useRef(null)
-  const reached = useScrolledTo(sectionRef)
+  const reached = usePastHero()
 
   return (
-    <section ref={sectionRef} id="about" aria-labelledby="about-title" className="bg-white">
+    <section id="about" aria-labelledby="about-title" className="bg-white">
       <SectionTape>ABOUT US</SectionTape>
 
       <div className="mx-auto max-w-300 px-5 py-14 md:px-10 lg:py-20">
-        <div className="max-w-220">
+        <Reveal className="max-w-220">
           <h2 id="about-title" className="type-h2 text-heading lg:type-h1">
             <span className="text-slate-400">Founded by</span> Global Evangelist, Prophet (Dr.) S.K.
             Abiara
@@ -122,12 +116,14 @@ function AboutSection() {
           <p className="mt-2 font-subheading text-base leading-6.5 font-semibold text-muted lg:mt-3 lg:type-lead">
             Led today by Bishop Isaac Abiara, Lead Pastor &amp; DCC Superintendent.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-8 grid items-center gap-7 lg:mt-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-16">
-          <Portraits />
+          <Reveal>
+            <Portraits />
+          </Reveal>
 
-          <div className="max-w-100">
+          <Reveal className="max-w-100" delay={120}>
             <p className="type-eyebrow flex items-center gap-3 text-gold-700 max-lg:hidden">
               <span aria-hidden="true" className="h-0.5 w-8 bg-heritage-gold" />
               Our story
@@ -154,7 +150,7 @@ function AboutSection() {
                 Watch welcome
               </button>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
 

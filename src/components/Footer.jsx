@@ -9,6 +9,7 @@ import {
 } from '../data/site'
 import { Logo } from './Brand'
 import { ArrowRight, ArrowUp, ArrowUpRight, Mail, MapPin, Phone } from './icons'
+import Reveal from './Reveal'
 
 const currentYear = new Date().getFullYear()
 
@@ -179,15 +180,15 @@ function Footer() {
   return (
     <footer className="overflow-hidden rounded-t-lg bg-bg-dark">
       <div className="mx-auto max-w-300 px-5 pt-10 md:px-10 lg:pt-14">
-        <div className="lg:hidden">
+        <Reveal className="lg:hidden">
           <FooterBrand />
           <MobileNewsletter />
-        </div>
-        <div className="max-lg:hidden">
+        </Reveal>
+        <Reveal className="max-lg:hidden">
           <DesktopNewsletter />
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-9 py-9 lg:grid-cols-3 lg:gap-x-8 lg:py-10 xl:grid-cols-[1.35fr_1fr_1fr_1.25fr_1.15fr]">
+        <Reveal className="grid grid-cols-2 gap-x-6 gap-y-9 py-9 lg:grid-cols-3 lg:gap-x-8 lg:py-10 xl:grid-cols-[1.35fr_1fr_1fr_1.25fr_1.15fr]">
           <div className="max-lg:hidden lg:col-span-3 xl:col-span-1">
             <FooterBrand />
           </div>
@@ -266,17 +267,19 @@ function Footer() {
             <FooterHeading>Our branches</FooterHeading>
             <LinkList items={footerBranches} className="mt-4" />
           </div>
-        </div>
+        </Reveal>
 
-        <section className="rounded-lg bg-blue-800 p-5 md:px-7 md:py-5">
-          <p className="type-eyebrow text-heritage-gold">2026 CAC Watchword</p>
-          <blockquote className="mt-2 flex flex-col gap-1.5 lg:flex-row lg:flex-wrap lg:items-baseline lg:gap-2">
-            <p className="type-quote text-white">
-              “Open my eyes, that I may behold wondrous things out of your law.”
-            </p>
-            <cite className="type-eyebrow text-heritage-gold not-italic">Psalm 119:18</cite>
-          </blockquote>
-        </section>
+        <Reveal>
+          <section className="rounded-lg bg-blue-800 p-5 md:px-7 md:py-5">
+            <p className="type-eyebrow text-heritage-gold">2026 CAC Watchword</p>
+            <blockquote className="mt-2 flex flex-col gap-1.5 lg:flex-row lg:flex-wrap lg:items-baseline lg:gap-2">
+              <p className="type-quote text-white">
+                “Open my eyes, that I may behold wondrous things out of your law.”
+              </p>
+              <cite className="type-eyebrow text-heritage-gold not-italic">Psalm 119:18</cite>
+            </blockquote>
+          </section>
+        </Reveal>
 
         <div className="mt-7 flex flex-col items-start gap-4 border-t border-white/15 pt-5 lg:mt-9 lg:flex-row lg:items-center lg:justify-between xl:pr-44">
           <p className="font-badge text-xs leading-4.5 font-medium text-on-dark-muted">
