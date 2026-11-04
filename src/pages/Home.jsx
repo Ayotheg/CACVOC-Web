@@ -92,14 +92,14 @@ function Home() {
     >
       <HeroVideo />
 
-      <p className="type-eyebrow tracking-[0.16em] text-white text-shadow-md text-shadow-blue-950/70 max-sm:text-[11px]">
+      <p className="type-eyebrow tracking-[0.16em] text-white max-sm:text-[11px]">
         Christ Apostolic Church · Oke-Odo
       </p>
 
       {/* The space is reserved so the page doesn't jump as the text types and deletes. */}
       <h1
         aria-label={PHRASES[0]}
-        className="mt-5 flex min-h-22 items-center justify-center font-display text-[40px] leading-11 font-extrabold tracking-[-0.035em] text-white text-shadow-lg text-shadow-blue-950/70 md:min-h-17 md:text-[56px] md:leading-15 md:whitespace-nowrap xl:text-[64px] xl:leading-17"
+        className="mt-5 flex min-h-22 items-center justify-center font-display text-[40px] leading-11 font-extrabold tracking-[-0.035em] text-white md:min-h-17 md:text-[56px] md:leading-15 md:whitespace-nowrap xl:text-[64px] xl:leading-17"
       >
         <span aria-hidden="true">
           {typed}
@@ -107,7 +107,7 @@ function Home() {
         </span>
       </h1>
 
-      <p className="type-body mt-4 text-white text-shadow-md text-shadow-blue-950/70 md:type-body-lg">
+      <p className="type-body mt-4 text-white md:type-body-lg">
         Worship with us at Oke-Odo, or online wherever you are.
       </p>
 

@@ -16,7 +16,9 @@ export function Brand({ nameClass = 'text-heading', subClass = 'text-link', onCl
     <Link to="/" onClick={onClick} className="flex items-center gap-2.5">
       <Logo className="size-10" />
       <span className="flex flex-col">
-        <span className={`font-heading text-sm leading-4.5 font-bold transition-colors ${nameClass}`}>
+        <span
+          className={`font-heading text-sm leading-4.5 font-bold whitespace-nowrap transition-colors ${nameClass}`}
+        >
           Christ Apostolic Church
         </span>
         <span className={`font-badge text-[11px] leading-4 font-medium transition-colors ${subClass}`}>

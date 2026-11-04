@@ -108,10 +108,10 @@ function Navbar() {
           : 'border-border bg-white'
       }`}
     >
-      <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-4 px-5 md:px-10 xl:h-18">
+      <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-2 px-5 md:px-10 xl:h-18 xl:gap-4">
         <Brand
-          nameClass={overHero ? 'text-heading xl:text-white xl:text-shadow-md xl:text-shadow-blue-950/70' : 'text-heading'}
-          subClass={overHero ? 'text-link xl:text-white xl:text-shadow-md xl:text-shadow-blue-950/70' : 'text-link'}
+          nameClass={overHero ? 'text-heading xl:text-white' : 'text-heading'}
+          subClass={overHero ? 'text-link xl:text-white' : 'text-link'}
         />
 
         <nav
@@ -174,7 +174,7 @@ function Navbar() {
           {/* Dropped on the narrowest phones, where it won't fit. The menu has Watch live too. */}
           <Link
             to="/live"
-            className="flex h-11 items-center gap-1.5 rounded-pill bg-primary-blue pr-3.5 pl-2.5 font-ui text-sm font-semibold text-white max-[359px]:hidden"
+            className="flex h-11 items-center gap-1.5 rounded-pill bg-primary-blue pr-3.5 pl-2.5 font-ui text-sm font-semibold text-white max-[383px]:hidden"
           >
             <LiveDot />
             Live
