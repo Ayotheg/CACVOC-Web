@@ -12,7 +12,8 @@ import {
 
 /* TODO: replace with the church's real URLs. */
 export const externalLinks = {
-  youtube: 'https://www.youtube.com/@cacvoclagos',
+  youtube: 'https://www.youtube.com/@cacvoclagos', // The church channel, where services stream.
+  teachings: 'https://www.youtube.com/@IsaacKAbiara', // Bishop Isaac's own channel.
   facebook: 'https://www.facebook.com/100063915377767',
   instagram: '#',
   lekkiBranch: '#',
@@ -39,7 +40,7 @@ export const navLinks = [
     label: 'Teachings',
     description: 'Messages on YouTube',
     icon: BookOpen,
-    href: externalLinks.youtube,
+    href: externalLinks.teachings,
   },
   { label: 'Contact', description: 'Visit, call or write to us', icon: MapPin, to: '/contact' },
 ]
@@ -61,7 +62,7 @@ export const footerExplore = [
 
 export const footerWatchGive = [
   { label: 'Livestream', to: '/#live', showLiveBadge: true },
-  { label: 'YouTube teachings', mobileLabel: 'Teachings', href: externalLinks.youtube },
+  { label: 'YouTube teachings', mobileLabel: 'Teachings', href: externalLinks.teachings },
   { label: 'Support the church', to: '/give' },
   { label: 'Plan your visit', to: '/visit' },
 ]

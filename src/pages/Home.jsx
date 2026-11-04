@@ -6,6 +6,7 @@ import GallerySection from '../components/GallerySection'
 import { ArrowRight, CirclePlay } from '../components/icons'
 import LivestreamSection from '../components/LivestreamSection'
 import Reveal from '../components/Reveal'
+import TeachingsSection from '../components/TeachingsSection'
 
 const PHRASES = ['Welcome to Agbala Itura', 'Come and find rest', 'You belong here']
 const TICK_MS = 75
@@ -86,7 +87,7 @@ function HeroVideo() {
     <>
       <video
         ref={videoRef}
-        src="/video.mp4"
+        src="/HeroVideo.mp4"
         poster="/hero-poster.jpg"
         muted
         loop
@@ -166,6 +167,7 @@ function Home() {
       <GallerySection />
       <EventsSection />
       <LivestreamSection />
+      <TeachingsSection />
     </>
   )
 }
