@@ -17,7 +17,7 @@ export const externalLinks = {
   facebook: 'https://www.facebook.com/100063915377767',
   instagram: 'https://www.instagram.com/cacvoclagos',
   lekkiBranch: 'https://cacvoclekki.org/',
-  directions: '#',
+  directions: 'https://maps.app.goo.gl/aksfNzw7pAY5UepR6',
 }
 
 /* Items with `to` are routes. Items with `href` open in a new tab. */
