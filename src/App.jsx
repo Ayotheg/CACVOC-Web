@@ -17,6 +17,7 @@ const router = createBrowserRouter([
       { path: 'contact', element: <Placeholder title="Contact" /> },
       { path: 'live', element: <Placeholder title="Watch live" /> },
       { path: 'give', element: <Placeholder title="Give" /> },
+      { path: 'visit', element: <Placeholder title="Plan your visit" /> },
       // Swap for the real 404 page once it is designed.
       { path: '*', element: <Placeholder title="Page not found" /> },
     ],

@@ -19,7 +19,6 @@ export {
   CirclePlay,
   Clock,
   Copy,
-  Equal as Menu, // the two-line menu icon
   Heart,
   Image as ImageIcon,
   Mail,
@@ -36,6 +35,12 @@ export {
   VolumeX,
   X,
 } from 'lucide-react'
+
+/* The design's menu icon: two lines, the lower one shorter. */
+export const Menu = createLucideIcon('Menu', [
+  ['path', { d: 'M4 9h16', key: 'top' }],
+  ['path', { d: 'M8 15h12', key: 'bottom' }],
+])
 
 /* Lucide no longer ships brand icons, so these keep its drawing style by hand. */
 export const Youtube = createLucideIcon('Youtube', [

@@ -110,14 +110,14 @@ function Navbar() {
     >
       <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-4 px-5 md:px-10 xl:h-18">
         <Brand
-          nameClass={overHero ? 'text-heading xl:text-white' : 'text-heading'}
-          subClass={overHero ? 'text-link xl:text-on-dark-muted' : 'text-link'}
+          nameClass={overHero ? 'text-heading xl:text-white xl:text-shadow-md xl:text-shadow-blue-950/70' : 'text-heading'}
+          subClass={overHero ? 'text-link xl:text-white xl:text-shadow-md xl:text-shadow-blue-950/70' : 'text-link'}
         />
 
         <nav
           aria-label="Main"
           className={`hidden items-center gap-0.5 rounded-pill border p-1 transition-colors xl:flex ${
-            overHero ? 'border-white/20 bg-white/10' : 'border-border bg-slate-100'
+            overHero ? 'border-white/25 bg-white/10' : 'border-border bg-slate-100'
           }`}
         >
           {navLinks.map((link) => {
@@ -155,7 +155,7 @@ function Navbar() {
             to="/give"
             className={`flex h-10 items-center rounded-pill border px-5 font-ui text-sm font-semibold transition-colors ${
               overHero
-                ? 'border-white text-white hover:bg-white/15'
+                ? 'border-white/50 text-white hover:bg-white/15'
                 : 'border-border text-heading hover:bg-slate-100'
             }`}
           >
@@ -170,15 +170,25 @@ function Navbar() {
           </Link>
         </div>
 
-        <button
-          type="button"
-          aria-label="Open menu"
-          aria-haspopup="dialog"
-          onClick={() => setMenuOpen(true)}
-          className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-border text-heading xl:hidden"
-        >
-          <Menu aria-hidden="true" className="size-5" />
-        </button>
+        <div className="flex items-center gap-2 xl:hidden">
+          {/* Dropped on the narrowest phones, where it won't fit. The menu has Watch live too. */}
+          <Link
+            to="/live"
+            className="flex h-11 items-center gap-1.5 rounded-pill bg-primary-blue pr-3.5 pl-2.5 font-ui text-sm font-semibold text-white max-[359px]:hidden"
+          >
+            <LiveDot />
+            Live
+          </Link>
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-haspopup="dialog"
+            onClick={() => setMenuOpen(true)}
+            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-border text-heading"
+          >
+            <Menu aria-hidden="true" className="size-5" />
+          </button>
+        </div>
       </div>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />

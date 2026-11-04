@@ -63,7 +63,7 @@ export const footerWatchGive = [
   { label: 'Livestream', to: '/live', badge: 'Live' },
   { label: 'YouTube teachings', mobileLabel: 'Teachings', href: externalLinks.youtube },
   { label: 'Support the church', to: '/give' },
-  { label: 'Plan your visit', to: '/contact' },
+  { label: 'Plan your visit', to: '/visit' },
 ]
 
 export const footerBranches = [{ label: 'CAC VOC Lekki', href: externalLinks.lekkiBranch }]
