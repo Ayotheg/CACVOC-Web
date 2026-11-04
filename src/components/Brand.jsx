@@ -14,7 +14,7 @@ export function Logo({ className = '' }) {
 export function Brand({ nameClass = 'text-heading', subClass = 'text-link', onClick }) {
   return (
     <Link to="/" onClick={onClick} className="flex items-center gap-2.5">
-      <Logo className="size-10 xl:size-11" />
+      <Logo className="size-10" />
       <span className="flex flex-col">
         <span className={`font-heading text-sm leading-4.5 font-bold transition-colors ${nameClass}`}>
           Christ Apostolic Church

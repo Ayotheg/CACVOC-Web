@@ -6,7 +6,7 @@ function RootLayout() {
   const { pathname } = useLocation()
 
   // The navbar is fixed, so pages start below it. The home hero runs behind it on desktop.
-  const offset = pathname === '/' ? 'pt-17 xl:pt-0' : 'pt-17 xl:pt-21'
+  const offset = pathname === '/' ? 'pt-17 xl:pt-0' : 'pt-17 xl:pt-18'
 
   return (
     <div className="flex min-h-dvh flex-col">

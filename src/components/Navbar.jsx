@@ -6,7 +6,7 @@ import { ArrowUpRight, ChevronDown, Menu } from './icons'
 import LiveDot from './LiveDot'
 import MobileMenu from './MobileMenu'
 
-const NAV_HEIGHT = 84
+const NAV_HEIGHT = 72
 
 /* True while the home hero (#hero) is still behind the desktop navbar. */
 function useOverHero(isHome) {
@@ -32,7 +32,8 @@ function useOverHero(isHome) {
 }
 
 function linkClass({ isActive, overHero }) {
-  const base = 'type-nav flex items-center gap-1 rounded-pill px-3.5 py-2 transition-colors'
+  const base =
+    'flex items-center gap-1 rounded-pill px-3 py-1.5 font-ui text-sm leading-5 font-medium transition-colors'
   if (overHero) return `${base} text-white hover:bg-white/15`
   return `${base} ${isActive ? 'text-coral-700' : 'text-heading'} hover:bg-white`
 }
@@ -82,7 +83,7 @@ function AboutDropdown({ link, overHero }) {
               <Link
                 to={child.to}
                 onClick={() => setOpen(false)}
-                className="type-nav block rounded-sm px-3 py-2.5 text-heading transition-colors hover:bg-slate-100"
+                className="block rounded-sm px-3 py-2 font-ui text-sm leading-5 font-medium text-heading transition-colors hover:bg-slate-100"
               >
                 {child.label}
               </Link>
@@ -107,7 +108,7 @@ function Navbar() {
           : 'border-border bg-white'
       }`}
     >
-      <div className="flex h-17 items-center justify-between gap-4 px-5 xl:h-21 xl:px-12">
+      <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-4 px-5 md:px-10 xl:h-18">
         <Brand
           nameClass={overHero ? 'text-heading xl:text-white' : 'text-heading'}
           subClass={overHero ? 'text-link xl:text-on-dark-muted' : 'text-link'}
@@ -152,7 +153,7 @@ function Navbar() {
         <div className="hidden items-center gap-3 xl:flex">
           <Link
             to="/give"
-            className={`type-button flex h-11.5 items-center rounded-pill border px-6 transition-colors ${
+            className={`flex h-10 items-center rounded-pill border px-5 font-ui text-sm font-semibold transition-colors ${
               overHero
                 ? 'border-white text-white hover:bg-white/15'
                 : 'border-border text-heading hover:bg-slate-100'
@@ -162,7 +163,7 @@ function Navbar() {
           </Link>
           <Link
             to="/live"
-            className="type-button flex h-11.5 items-center gap-2 rounded-pill bg-primary-blue px-5 text-white transition-colors hover:bg-blue-600"
+            className="flex h-10 items-center gap-1.5 rounded-pill bg-primary-blue px-4 font-ui text-sm font-semibold text-white transition-colors hover:bg-blue-600"
           >
             <LiveDot />
             Watch live
