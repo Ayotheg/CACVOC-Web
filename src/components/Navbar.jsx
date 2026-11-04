@@ -131,7 +131,7 @@ function Navbar() {
 
         <div className="hidden items-center gap-3 xl:flex">
           <Link
-            to="/give"
+            to="/#support"
             className={`flex h-10 items-center rounded-pill border px-5 font-ui text-sm font-semibold transition-colors ${
               overHero
                 ? 'border-white/50 text-white hover:bg-white/15'

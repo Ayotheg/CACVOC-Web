@@ -6,6 +6,7 @@ import GallerySection from '../components/GallerySection'
 import { ArrowRight, CirclePlay } from '../components/icons'
 import LivestreamSection from '../components/LivestreamSection'
 import Reveal from '../components/Reveal'
+import SupportSection from '../components/SupportSection'
 import TeachingsSection from '../components/TeachingsSection'
 
 const PHRASES = ['Welcome to Agbala Itura', 'Come and find rest', 'You belong here']
@@ -168,6 +169,7 @@ function Home() {
       <EventsSection />
       <LivestreamSection />
       <TeachingsSection />
+      <SupportSection />
     </>
   )
 }

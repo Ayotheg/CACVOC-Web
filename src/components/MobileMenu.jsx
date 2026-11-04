@@ -147,7 +147,7 @@ function MobileMenu({ open, onClose }) {
               Watch live
             </Link>
             <Link
-              to="/give"
+              to="/#support"
               onClick={onClose}
               className="type-button flex h-13 w-30 items-center justify-center rounded-pill border border-border text-heading"
             >

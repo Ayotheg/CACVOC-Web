@@ -86,6 +86,14 @@
 
   --animate-caret: caret 1s steps(1) infinite;
   --animate-rise: rise 0.35s ease-out;
+  --animate-write: write 7s ease-in-out infinite both;
+
+  @keyframes write {
+    0% { stroke-dashoffset: var(--dash); fill-opacity: 0; }
+    55% { stroke-dashoffset: 0; fill-opacity: 0; }
+    72%, 100% { stroke-dashoffset: 0; fill-opacity: 1; }
+  }
+
   --animate-marquee: marquee 70s linear infinite;
   --animate-marquee-reverse: marquee 55s linear infinite reverse;
 

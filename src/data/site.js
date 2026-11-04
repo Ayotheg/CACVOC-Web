@@ -63,7 +63,7 @@ export const footerExplore = [
 export const footerWatchGive = [
   { label: 'Livestream', to: '/#live', showLiveBadge: true },
   { label: 'YouTube teachings', mobileLabel: 'Teachings', href: externalLinks.teachings },
-  { label: 'Support the church', to: '/give' },
+  { label: 'Support the church', to: '/#support' },
   { label: 'Plan your visit', to: '/visit' },
 ]
 
