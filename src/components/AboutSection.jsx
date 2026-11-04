@@ -3,17 +3,24 @@ import { Link } from 'react-router'
 import { ArrowRight, CirclePlay, X } from './icons'
 import SectionTape from './SectionTape'
 
-/* True once the element has come 40% up the screen, and for the rest of the page below it. */
+/* True once the element has come 40% up the screen, and for the rest of the page below it.
+   Reads the position on every scroll, because an IntersectionObserver misses a jump that
+   skips straight past the element, such as going from the page end to the top. */
 function useScrolledTo(ref) {
   const [reached, setReached] = useState(false)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setReached(entry.isIntersecting || entry.boundingClientRect.top < 0),
-      { rootMargin: '0px 0px -40% 0px' },
-    )
-    observer.observe(ref.current)
-    return () => observer.disconnect()
+    const update = () =>
+      setReached(ref.current.getBoundingClientRect().top < window.innerHeight * 0.6)
+
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
   }, [ref])
 
   return reached
