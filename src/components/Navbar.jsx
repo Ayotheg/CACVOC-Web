@@ -6,31 +6,6 @@ import { ArrowUpRight, ChevronDown, Menu } from './icons'
 import LiveDot from './LiveDot'
 import MobileMenu from './MobileMenu'
 
-const NAV_HEIGHT = 72
-
-/* True while the home hero (#hero) is still behind the desktop navbar. */
-function useOverHero(isHome) {
-  const [heroVisible, setHeroVisible] = useState(true)
-
-  useEffect(() => {
-    const hero = document.getElementById('hero')
-    if (!isHome || !hero) return undefined
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setHeroVisible(entry.isIntersecting),
-      { rootMargin: `-${NAV_HEIGHT}px 0px 0px 0px` },
-    )
-    observer.observe(hero)
-
-    return () => {
-      observer.disconnect()
-      setHeroVisible(true)
-    }
-  }, [isHome])
-
-  return isHome && heroVisible
-}
-
 function linkClass({ isActive, overHero }) {
   const base =
     'flex items-center gap-1 rounded-pill px-3 py-1.5 font-ui text-sm leading-5 font-medium transition-colors'
@@ -97,15 +72,17 @@ function AboutDropdown({ link, overHero }) {
 
 function Navbar() {
   const { pathname } = useLocation()
-  const overHero = useOverHero(pathname === '/')
+  // On the home page the navbar belongs to the hero: it scrolls away with it, and each
+  // section's tape takes over as the header. Other pages keep it fixed.
+  const overHero = pathname === '/'
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-200 ${
+      className={`inset-x-0 top-0 z-50 border-b transition-colors duration-200 ${
         overHero
-          ? 'border-border bg-white xl:border-transparent xl:bg-transparent'
-          : 'border-border bg-white'
+          ? 'absolute border-border bg-white xl:border-transparent xl:bg-transparent'
+          : 'fixed border-border bg-white'
       }`}
     >
       <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-2 px-5 md:px-10 xl:h-18 xl:gap-4">

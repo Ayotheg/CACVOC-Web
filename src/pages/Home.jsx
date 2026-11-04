@@ -85,7 +85,6 @@ function Hero() {
   const typed = useTypewriter(PHRASES)
 
   return (
-    // Keep id="hero": the navbar stays transparent while this section is in view.
     <section
       id="hero"
       aria-label="Welcome"

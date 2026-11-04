@@ -278,7 +278,7 @@ function Footer() {
           </blockquote>
         </section>
 
-        <div className="mt-7 flex flex-col items-start gap-4 border-t border-white/15 pt-5 lg:mt-9 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-7 flex flex-col items-start gap-4 border-t border-white/15 pt-5 lg:mt-9 lg:flex-row lg:items-center lg:justify-between xl:pr-44">
           <p className="font-badge text-xs leading-4.5 font-medium text-on-dark-muted">
             © {currentYear} Christ Apostolic Church, Vineyard of Comfort. All rights reserved.
           </p>
