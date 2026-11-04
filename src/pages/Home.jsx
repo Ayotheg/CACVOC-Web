@@ -63,8 +63,14 @@ function useTypewriter(phrases, elementRef) {
   return text
 }
 
+/* Phones get the lighter version. Both are compressed copies: the full-quality originals are
+   kept outside the project, because they are too large for GitHub and for visitors to download. */
+const pickHeroVideo = () =>
+  window.matchMedia('(min-width: 768px)').matches ? '/hero-1080.mp4' : '/hero-720.mp4'
+
 function HeroVideo() {
   const videoRef = useRef(null)
+  const [src] = useState(pickHeroVideo)
 
   useEffect(() => {
     if (prefersReducedMotion()) return undefined
@@ -88,7 +94,7 @@ function HeroVideo() {
     <>
       <video
         ref={videoRef}
-        src="/HeroVideo.mp4"
+        src={src}
         poster="/hero-poster.jpg"
         muted
         loop

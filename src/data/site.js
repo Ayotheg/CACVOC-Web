@@ -15,8 +15,8 @@ export const externalLinks = {
   youtube: 'https://www.youtube.com/@cacvoclagos', // The church channel, where services stream.
   teachings: 'https://www.youtube.com/@IsaacKAbiara', // Bishop Isaac's own channel.
   facebook: 'https://www.facebook.com/100063915377767',
-  instagram: '#',
-  lekkiBranch: '#',
+  instagram: 'https://www.instagram.com/cacvoclagos',
+  lekkiBranch: 'https://cacvoclekki.org/',
   directions: '#',
 }
 
@@ -70,7 +70,7 @@ export const footerWatchGive = [
 export const footerBranches = [{ label: 'CAC VOC Lekki', href: externalLinks.lekkiBranch }]
 
 export const serviceTimes = [
-  { day: 'SUN', name: '[Sunday service]', time: '[TIME]' },
-  { day: '[DAY]', name: '[Midweek service]', time: '[TIME]' },
+  { day: 'SUN', name: '[Sunday service]', time: '[8am]' },
+  { day: 'Jigbare', name: '[Midweek service]', time: '[TIME]' },
   { day: '[DAY]', name: '[Prayer meeting]', time: '[TIME]' },
 ]

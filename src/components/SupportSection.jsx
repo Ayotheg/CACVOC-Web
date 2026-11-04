@@ -72,7 +72,7 @@ function AccountCard({ account }) {
         </span>
       </div>
       <p
-        className={`self-center font-numeric text-xl leading-8 font-semibold tracking-wider text-ink select-all sm:text-2xl lg:text-[26px] ${
+        className={`self-center font-numeric text-lg leading-8 font-semibold tracking-wider text-ink select-all min-[360px]:text-xl sm:text-2xl lg:text-[26px] ${
           hasRealNumber ? '' : 'col-span-2 lg:col-span-1'
         }`}
       >
