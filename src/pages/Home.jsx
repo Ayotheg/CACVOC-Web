@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import AboutSection from '../components/AboutSection'
+import GallerySection from '../components/GallerySection'
 import { ArrowRight, CirclePlay } from '../components/icons'
 
 const PHRASES = ['Welcome to Agbala Itura', 'Come and find rest', 'You belong here']
@@ -136,6 +137,7 @@ function Home() {
     <>
       <Hero />
       <AboutSection />
+      <GallerySection />
     </>
   )
 }
