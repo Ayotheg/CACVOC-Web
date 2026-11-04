@@ -85,6 +85,12 @@
   --shadow-lift: 0 16px 40px rgba(16, 42, 86, 0.14);
 
   --animate-caret: caret 1s steps(1) infinite;
+  --animate-rise: rise 0.35s ease-out;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   @keyframes caret {
     0%, 49% { opacity: 1; }

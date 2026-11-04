@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
+import AboutSection from '../components/AboutSection'
 import { ArrowRight, CirclePlay } from '../components/icons'
 
 const PHRASES = ['Welcome to Agbala Itura', 'Come and find rest', 'You belong here']
@@ -80,7 +81,7 @@ function HeroVideo() {
   )
 }
 
-function Home() {
+function Hero() {
   const typed = useTypewriter(PHRASES)
 
   return (
@@ -128,6 +129,15 @@ function Home() {
         </Link>
       </div>
     </section>
+  )
+}
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <AboutSection />
+    </>
   )
 }
 
