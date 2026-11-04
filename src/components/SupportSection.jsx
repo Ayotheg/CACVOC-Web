@@ -173,7 +173,7 @@ function SupportSection() {
             </h2>
             <p className="type-body mt-3 text-body lg:mt-4">
               Your giving keeps the doors open, the youth growing and the Word going out. Give by
-              bank transfer to any of the accounts here.
+              bank transfer to the account here.
             </p>
             <Verse className="mt-6 max-lg:hidden" />
           </Reveal>

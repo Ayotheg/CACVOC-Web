@@ -276,7 +276,7 @@ function Footer() {
             <p className="type-eyebrow text-heritage-gold">2026 CAC Watchword</p>
             <blockquote className="mt-2 flex flex-col gap-1.5 lg:flex-row lg:flex-wrap lg:items-baseline lg:gap-2">
               <p className="type-quote text-white">
-                “Open my eyes, that I may behold wondrous things out of your law.”
+                “Open thou mine eyes, that I may behold wondrous things out of thy law.”
               </p>
               <cite className="type-eyebrow text-heritage-gold not-italic">Psalm 119:18</cite>
             </blockquote>

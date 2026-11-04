@@ -1,7 +1,6 @@
-/* Events on the home page. This is the only file to edit when events change.
+/* The large "Next up" card in the Events section, for a major event only. Swap it whenever the
+   next big one comes up. The "Also coming up" list beside it comes from services.js.
    Anything in [square brackets] is a placeholder waiting for real details. */
-
-/* The large "Next up" event. */
 export const featuredEvent = {
   title: '21 Days of Power with Prayer and Fasting',
   theme: 'Transformed', // Set to '' to hide the Theme line.
@@ -19,44 +18,3 @@ export const featuredEvent = {
 
   link: '/events', // Where "Event details" goes.
 }
-
-/* The "Also coming up" list. Add, remove or reorder events freely; four fits the design best.
-   Copy a whole { ... } block to add one. Set streamedLive to true to show the "Streamed live" tag. */
-export const upcomingEvents = [
-  {
-    day: '[DD]',
-    month: '[MON]',
-    title: '[Monthly Holy Ghost night]',
-    time: '[TIME]',
-    venue: 'Church Auditorium',
-    streamedLive: true,
-    link: '/events',
-  },
-  {
-    day: '[DD]',
-    month: '[MON]',
-    title: '[Youth fellowship]',
-    time: '[TIME]',
-    venue: 'Church Auditorium',
-    streamedLive: false,
-    link: '/events',
-  },
-  {
-    day: '[DD]',
-    month: '[MON]',
-    title: '[Women’s conference]',
-    time: '[TIME]',
-    venue: 'Church Auditorium',
-    streamedLive: false,
-    link: '/events',
-  },
-  {
-    day: '[DD]',
-    month: '[MON]',
-    title: '[Thanksgiving service]',
-    time: '[TIME]',
-    venue: 'Church Auditorium',
-    streamedLive: false,
-    link: '/events',
-  },
-]

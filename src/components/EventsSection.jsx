@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
-import { featuredEvent, upcomingEvents } from '../data/events'
+import { featuredEvent } from '../data/events'
+import { hasSetHours, lagosNow, serviceVenue, weeklySchedule } from '../data/services'
 import { ArrowRight, CalendarPlus, Clock, MapPin } from './icons'
 import Reveal from './Reveal'
 import SectionTape from './SectionTape'
@@ -95,22 +97,19 @@ function FeaturedEvent({ event }) {
   )
 }
 
-function EventRow({ event }) {
+function ServiceRow({ day, service }) {
   return (
-    <li className="flex items-center gap-3.5 py-4 lg:gap-5 lg:py-5">
-      <span className="flex h-16 w-15 shrink-0 flex-col items-center justify-center rounded-md bg-slate-100 lg:h-18 lg:w-17">
-        <span className="font-numeric text-lg leading-6 font-semibold text-heading lg:text-[22px] lg:leading-7">
-          {event.day}
-        </span>
-        <span className="type-eyebrow text-[10px] leading-3.5 text-muted">{event.month}</span>
+    <li className="flex items-center gap-3.5 py-4 lg:gap-5">
+      <span className="flex size-14 shrink-0 items-center justify-center rounded-md bg-slate-100 font-numeric text-sm font-semibold text-heading lg:size-16 lg:text-base">
+        {day}
       </span>
 
       <span className="flex min-w-0 flex-1 flex-col gap-1.5">
         <span className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
           <span className="font-subheading text-base leading-5.5 font-bold text-heading lg:text-lg lg:leading-6">
-            {event.title}
+            {service.name}
           </span>
-          {event.streamedLive && (
+          {service.livestreamed && (
             <span className="inline-flex items-center gap-1.5 rounded-pill bg-coral-100 px-2.5 py-0.5 font-badge text-[11px] leading-4 font-semibold text-coral-700">
               <span aria-hidden="true" className="size-1.5 rounded-full bg-coral-500" />
               Streamed live
@@ -118,25 +117,69 @@ function EventRow({ event }) {
           )}
         </span>
         <span className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] leading-5 text-muted">
-          <span className="flex items-center gap-1.5 font-numeric font-semibold">
+          {/* Monthly services show a date instead of hours, so they read differently at a glance. */}
+          <span
+            className={`flex items-center gap-1.5 font-numeric font-semibold ${
+              hasSetHours(service) ? '' : 'text-gold-700'
+            }`}
+          >
             <Clock aria-hidden="true" className="size-3.5 shrink-0" />
-            {event.time}
+            {service.time}
           </span>
           <span className="flex items-center gap-1.5 font-body">
             <MapPin aria-hidden="true" className="size-3.5 shrink-0" />
-            {event.venue}
+            {serviceVenue}
           </span>
         </span>
       </span>
 
-      <Link
-        to={event.link}
-        aria-label={`View ${event.title}`}
-        className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border text-heading transition-colors hover:bg-slate-100"
-      >
-        <ArrowRight aria-hidden="true" className="size-4" />
-      </Link>
+      {service.livestreamed && (
+        <Link
+          to="/#live"
+          aria-label={`Watch ${service.name} on the livestream`}
+          className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border text-heading transition-colors hover:bg-slate-100"
+        >
+          <ArrowRight aria-hidden="true" className="size-4" />
+        </Link>
+      )}
     </li>
+  )
+}
+
+/* The church's regular services, one day at a time so the list stays short. It opens on today
+   in Lagos, or on Sunday when nothing is scheduled today. */
+function AlsoComingUp() {
+  const [selected, setSelected] = useState(() => {
+    const { day } = lagosNow()
+    return weeklySchedule.some((entry) => entry.day === day) ? day : weeklySchedule[0].day
+  })
+  const { day, services } = weeklySchedule.find((entry) => entry.day === selected)
+
+  return (
+    <>
+      <p className="type-eyebrow tracking-[0.16em] text-muted">Also coming up</p>
+      <div role="group" aria-label="Choose a day" className="mt-3 flex rounded-pill bg-slate-100 p-1">
+        {weeklySchedule.map((entry) => (
+          <button
+            key={entry.day}
+            type="button"
+            aria-label={entry.dayName}
+            aria-pressed={entry.day === selected}
+            onClick={() => setSelected(entry.day)}
+            className={`h-10 min-w-0 flex-1 cursor-pointer rounded-pill font-numeric text-[11px] font-semibold transition-colors sm:text-xs ${
+              entry.day === selected ? 'bg-white text-heading shadow-sm' : 'text-muted hover:text-heading'
+            }`}
+          >
+            {entry.day}
+          </button>
+        ))}
+      </div>
+      <ul className="mt-1 divide-y divide-border">
+        {services.map((service) => (
+          <ServiceRow key={service.name} day={day} service={service} />
+        ))}
+      </ul>
+    </>
   )
 }
 
@@ -162,14 +205,7 @@ function EventsSection() {
           </Reveal>
 
           <Reveal delay={120} className="xl:pr-5 2xl:pr-0">
-            <p className="type-eyebrow border-b border-border pb-2 tracking-[0.16em] text-muted">
-              Also coming up
-            </p>
-            <ul className="divide-y divide-border">
-              {upcomingEvents.map((event) => (
-                <EventRow key={`${event.day}-${event.month}-${event.title}`} event={event} />
-              ))}
-            </ul>
+            <AlsoComingUp />
           </Reveal>
         </div>
 

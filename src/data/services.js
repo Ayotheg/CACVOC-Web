@@ -1,8 +1,10 @@
-/* The church's weekly services. This is the only file to edit when they change.
+/* The church's weekly services, shown under "Also coming up" in the Events section.
+   This is the only file to edit when they change.
 
    - `day` is the short name on the badge, written in capitals: SUN, MON, TUE and so on.
    - Keep times in the form '6:45 AM – 8:45 AM'. That is how the site works out which service
      is happening during a livestream, using Lagos time.
+   - `livestreamed: true` adds a "Streamed live" tag in Events and lists the service in Livestream.
    - `inFooter: true` also lists a service in the footer. About four fits best. */
 export const serviceVenue = 'Church Auditorium'
 
@@ -11,16 +13,16 @@ export const weeklySchedule = [
     day: 'SUN',
     dayName: 'Sunday',
     services: [
-      { name: 'English Service', time: '6:45 AM – 8:45 AM', inFooter: true },
-      { name: 'Yoruba Service', time: '9:00 AM – 12:00 PM', inFooter: true },
-      { name: 'Combined Service', time: '1st Sunday of every month' },
-      { name: 'Youth Sunday', time: '3rd Sunday of the month' },
+      { name: 'English Service', time: '6:45 AM – 8:45 AM', livestreamed: true, inFooter: true },
+      { name: 'Yoruba Service', time: '9:00 AM – 12:00 PM', livestreamed: true, inFooter: true },
+      { name: 'Combined Service', time: '1st Sunday of every month', livestreamed: true },
+      { name: 'Youth Sunday', time: '3rd Sunday of the month', livestreamed: true },
     ],
   },
   {
     day: 'MON',
     dayName: 'Monday',
-    services: [{ name: 'Jigbare', time: '5:30 AM – 7:00 AM' }],
+    services: [{ name: 'Jigbare', time: '5:30 AM – 7:00 AM', livestreamed: true }],
   },
   {
     day: 'TUE',
@@ -31,8 +33,13 @@ export const weeklySchedule = [
     day: 'WED',
     dayName: 'Wednesday',
     services: [
-      { name: 'Alabiye Prayer Meeting', time: '9:00 AM – 11:30 AM', inFooter: true },
-      { name: 'Breakthrough Service', time: '5:30 PM – 7:30 PM' },
+      {
+        name: 'Alabiye Prayer Meeting',
+        time: '9:00 AM – 11:30 AM',
+        livestreamed: true,
+        inFooter: true,
+      },
+      { name: 'Breakthrough Service', time: '5:30 PM – 7:30 PM', livestreamed: true },
     ],
   },
   {
@@ -40,6 +47,7 @@ export const weeklySchedule = [
     dayName: 'Thursday',
     services: [
       { name: 'Business Men and Women', time: '6:00 AM – 8:30 AM' },
+      { name: 'Mid-day Miracle Hour', time: '12:00 PM – 1:00 PM', livestreamed: true },
       { name: 'Deliverance Hour', time: '12:00 PM – 3:00 PM' },
     ],
   },
@@ -48,11 +56,20 @@ export const weeklySchedule = [
     dayName: 'Friday',
     services: [
       { name: 'Pregnant Women Program', time: '9:00 AM – 11:00 AM' },
-      { name: 'Every Friday Vigil (Power Night)', time: '12:00 AM – 4:00 AM' },
+      { name: 'Every Friday Vigil (Power Night)', time: '12:00 AM – 4:00 AM', livestreamed: true },
       { name: 'Youth Vigil', time: 'Last Friday of the month' },
     ],
   },
 ]
+
+const HOURS = /(\d+):(\d+)\s*(AM|PM)\s*[–-]\s*(\d+):(\d+)\s*(AM|PM)/i
+
+/* False for monthly services, whose `time` is a date like '1st Sunday of every month'. */
+export const hasSetHours = (service) => HOURS.test(service.time)
+
+export const livestreamedServices = weeklySchedule.flatMap(({ day, services }) =>
+  services.filter((service) => service.livestreamed).map((service) => ({ ...service, day })),
+)
 
 export const footerServices = weeklySchedule.flatMap(({ day, services }) =>
   services.filter((service) => service.inFooter).map((service) => ({ ...service, day })),
@@ -82,7 +99,7 @@ export function lagosNow(date = new Date()) {
 
 /* True during a service's hours. Monthly services have no hours, so they never match. */
 export function isHappeningNow(day, service, now) {
-  const match = service.time.match(/(\d+):(\d+)\s*(AM|PM)\s*[–-]\s*(\d+):(\d+)\s*(AM|PM)/i)
+  const match = service.time.match(HOURS)
   if (!match || day !== now.day) return false
   const [, startHour, startMinute, startPeriod, endHour, endMinute, endPeriod] = match
   return (
