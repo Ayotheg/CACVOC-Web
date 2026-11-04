@@ -234,9 +234,9 @@ function Footer() {
               <li className="flex gap-2.5">
                 <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-on-dark-muted" />
                 <span>
-                  [Street address]<span className="lg:hidden">,</span>{' '}
+                  105 Old Otta Rd<span className="lg:hidden">,</span>{' '}
                   <br className="max-lg:hidden" />
-                  Oke-Odo, [City]
+                  Oke-Odo, Ile-Epo, Lagos. 
                 </span>
               </li>
               <li className="flex gap-2.5">
