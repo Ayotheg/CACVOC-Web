@@ -10,8 +10,8 @@ function useScrolledTo(ref) {
   const [reached, setReached] = useState(false)
 
   useEffect(() => {
-    const update = () =>
-      setReached(ref.current.getBoundingClientRect().top < window.innerHeight * 0.6)
+    const element = ref.current
+    const update = () => setReached(element.getBoundingClientRect().top < window.innerHeight * 0.6)
 
     update()
     window.addEventListener('scroll', update, { passive: true })
