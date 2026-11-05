@@ -28,6 +28,7 @@ export {
   Phone,
   Play,
   Plus,
+  Radio,
   Shield,
   Target,
   User,

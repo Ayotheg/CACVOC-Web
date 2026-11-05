@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { hasSetHours, isHappeningNow, lagosNow, livestreamedServices } from '../data/services'
 import { externalLinks } from '../data/site'
 import { splitStreamTitle, startedLabel, useLiveStatus } from '../live/liveStatus'
-import { Facebook, Youtube } from './icons'
+import { Facebook, Radio, Youtube } from './icons'
 import LiveDot from './LiveDot'
 import Reveal from './Reveal'
 import SectionTape from './SectionTape'
@@ -61,25 +61,84 @@ function LiveFrame({ platform, stream }) {
   )
 }
 
-/* Shown in place of the video whenever nothing is live. */
-function NotLiveCard() {
+const RING_DELAYS = ['0s', '1.5s', '3s']
+
+/* Shown in place of the video whenever nothing is live. Gold rings mean we're waiting to go live.
+   A slow blue spinner means the check failed and is still retrying, so a service may be on, and
+   the YouTube button beside the card is the way to reach it. The motion stops off-screen. */
+function NotLiveCard({ checkFailed }) {
+  const cardRef = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting))
+    observer.observe(cardRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  const playState = { animationPlayState: visible ? 'running' : 'paused' }
+
   return (
-    <div className="flex aspect-video flex-col items-center justify-center gap-2 overflow-hidden rounded-lg bg-ink px-6 text-center">
-      <p className="type-eyebrow tracking-[0.16em] text-heritage-gold">Livestream</p>
-      <p className="type-h3 text-white lg:type-h2">Not live yet</p>
-      <p className="type-body-sm text-on-dark-muted">
-        The service will play here as soon as we go live.
-      </p>
+    <div
+      ref={cardRef}
+      className="relative isolate flex w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-ink px-6 text-center max-sm:h-60 sm:aspect-video"
+    >
+      <div
+        aria-hidden="true"
+        style={playState}
+        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,var(--color-blue-800),transparent_70%)] motion-safe:animate-glow"
+      />
+
+      <div aria-hidden="true" className="relative size-14">
+        {checkFailed ? (
+          <span
+            style={playState}
+            className="absolute inset-0 rounded-full border-2 border-white/15 border-t-blue-200 [animation-duration:3s] motion-safe:animate-spin"
+          />
+        ) : (
+          RING_DELAYS.map((delay) => (
+            <span
+              key={delay}
+              style={{ ...playState, animationDelay: delay }}
+              className="absolute inset-0 rounded-full border border-heritage-gold opacity-0 motion-safe:animate-broadcast"
+            />
+          ))
+        )}
+        <span
+          className={`absolute inset-0 flex items-center justify-center rounded-full ${
+            checkFailed ? 'text-blue-200' : 'border border-heritage-gold/40 text-heritage-gold'
+          }`}
+        >
+          <Radio className="size-6" />
+        </span>
+      </div>
+
+      {/* The key replays the entrance when the message changes. */}
+      <div key={String(checkFailed)} aria-live="polite" className="mt-4 motion-safe:animate-rise">
+        <p className="type-h3 text-white lg:type-h2">
+          {checkFailed ? 'Having trouble checking' : 'Not live yet'}
+        </p>
+        <p className="type-body-sm mt-1.5 text-on-dark-muted">
+          {checkFailed
+            ? 'We’re still trying. If a service is on now, use the YouTube button to watch.'
+            : 'The service will play here as soon as we go live.'}
+        </p>
+      </div>
     </div>
   )
 }
 
-function WatchLinks({ status, isLive }) {
+function WatchLinks({ status, isLive, checkFailed }) {
   const links = PLATFORMS.filter(({ id }) => !isLive || status[id]).map((platform) => ({
     ...platform,
     href: isLive ? status[platform.id].url : externalLinks[platform.id],
     text: isLive ? `Watch on ${platform.label}` : platform.channelLabel,
   }))
+
+  // We can't see the stream, so send them to the channel's live page, which opens it if it's on.
+  if (checkFailed) {
+    links[0] = { ...links[0], href: `${externalLinks.youtube}/live`, text: 'Watch on YouTube' }
+  }
 
   return (
     <div className="flex flex-col gap-2.5">
@@ -145,7 +204,7 @@ function StreamedServices({ isLive }) {
 }
 
 function LivestreamSection() {
-  const { status, isLive } = useLiveStatus()
+  const { status, isLive, checkFailed } = useLiveStatus()
   const [choice, setChoice] = useState('youtube')
 
   const active = isLive && (status[choice] ? choice : PLATFORMS.find(({ id }) => status[id]).id)
@@ -186,10 +245,10 @@ function LivestreamSection() {
 
         <div className="mt-7 grid items-start gap-7 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10">
           <Reveal>
-            {isLive ? <LiveFrame platform={active} stream={stream} /> : <NotLiveCard />}
+            {isLive ? <LiveFrame platform={active} stream={stream} /> : <NotLiveCard checkFailed={checkFailed} />}
           </Reveal>
           <Reveal delay={120} className="flex flex-col gap-5">
-            <WatchLinks status={status} isLive={isLive} />
+            <WatchLinks status={status} isLive={isLive} checkFailed={checkFailed} />
             <StreamedServices isLive={isLive} />
           </Reveal>
         </div>

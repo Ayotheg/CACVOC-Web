@@ -32,9 +32,17 @@ function LiveStatusProvider({ children }) {
       if (document.hidden) return
       try {
         const response = await fetch('/api/live-status')
-        if (response.ok) setStatus(await response.json())
-      } catch {
+        if (!response.ok) throw new Error(`responded with ${response.status}`)
+
+        const next = await response.json()
+        if (next.errors && Object.keys(next.errors).length > 0) {
+          console.warn('Live check problem:', next.errors)
+        }
+        setStatus(next)
+      } catch (error) {
         // A failed check keeps the last answer, so a network blip can't drop a running stream.
+        console.warn('Could not reach the live check:', error.message)
+        setStatus((last) => ({ ...last, unreachable: true }))
       }
     }
 
