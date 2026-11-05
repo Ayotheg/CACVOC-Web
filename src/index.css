@@ -143,6 +143,11 @@
     outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
   }
+
+  /* iOS draws its own play button when it refuses autoplay. The site's video has none. */
+  video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+  }
 }
 
 /* Type styles: each sets family, size, line height, weight and tracking together. */

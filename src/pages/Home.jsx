@@ -68,6 +68,10 @@ function useTypewriter(phrases, elementRef) {
 const pickHeroVideo = () =>
   window.matchMedia('(min-width: 768px)').matches ? '/hero-1080.mp4' : '/hero-720.mp4'
 
+const WATCHDOG_MS = 3000
+const RELOAD_MIN_MS = 3000
+const RELOAD_MAX_MS = 60_000
+
 function HeroVideo() {
   const videoRef = useRef(null)
   const [src] = useState(pickHeroVideo)
@@ -75,19 +79,63 @@ function HeroVideo() {
   useEffect(() => {
     if (prefersReducedMotion()) return undefined
     const video = videoRef.current
+    const listeners = new AbortController()
+    const { signal } = listeners
+    const state = { onScreen: false, reloadDelay: RELOAD_MIN_MS, nextReloadAt: 0 }
 
-    // Only decode the video while it can be seen: it is the heaviest thing on the page.
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        // Browsers can refuse autoplay, for example in iOS Low Power Mode. The poster stays up.
-        video.play().catch(() => {})
-      } else {
+    // React sets `muted` as a property only, and some phones look for the attribute before autoplay.
+    video.muted = true
+    video.setAttribute('muted', '')
+
+    // Every trigger below lands here, so the video always ends up in the right state: playing
+    // while it can be seen, and paused otherwise, because it is the heaviest thing on the page.
+    const sync = () => {
+      if (!state.onScreen || document.hidden) {
         video.pause()
+        return
       }
-    })
+      if (video.error) {
+        if (Date.now() < state.nextReloadAt) return
+        state.nextReloadAt = Date.now() + state.reloadDelay
+        state.reloadDelay = Math.min(state.reloadDelay * 2, RELOAD_MAX_MS)
+        video.load()
+      }
+      // Browsers can refuse autoplay, as in iOS Low Power Mode, until the visitor first touches
+      // the page. The poster stays up until then.
+      if (video.paused) video.play().catch(() => {})
+    }
+
+    // A -1px margin, so the hero merely touching the edge of the screen counts as off-screen.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        state.onScreen = entry.isIntersecting
+        sync()
+      },
+      { rootMargin: '-1px' },
+    )
     observer.observe(video)
 
-    return () => observer.disconnect()
+    // Phones pause video for a screen lock, an app switch or a call, often without telling the page.
+    document.addEventListener('visibilitychange', sync, { signal })
+    window.addEventListener('pageshow', sync, { signal })
+    window.addEventListener('focus', sync, { signal })
+    document.addEventListener('touchend', sync, { signal, passive: true })
+    document.addEventListener('click', sync, { signal })
+    video.addEventListener('canplay', sync, { signal })
+    video.addEventListener(
+      'playing',
+      () => {
+        state.reloadDelay = RELOAD_MIN_MS
+      },
+      { signal },
+    )
+    const watchdog = setInterval(sync, WATCHDOG_MS)
+
+    return () => {
+      observer.disconnect()
+      listeners.abort()
+      clearInterval(watchdog)
+    }
   }, [])
 
   return (
