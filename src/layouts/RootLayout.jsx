@@ -7,7 +7,7 @@ function RootLayout() {
   const { pathname } = useLocation()
 
   // The navbar is fixed, so pages start below it. The home hero runs behind it on desktop.
-  const offset = pathname === '/' ? 'pt-17 xl:pt-0' : 'pt-17 xl:pt-18'
+  const offset = pathname === '/' ? 'pt-17 lg:pt-0' : 'pt-17 lg:pt-18'
 
   return (
     <LiveStatusProvider>

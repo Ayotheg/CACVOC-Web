@@ -34,18 +34,6 @@ function calendarFileLink({ title, startDate, endDate }) {
   return `data:text/calendar;charset=utf-8,${encodeURIComponent(file)}`
 }
 
-function SeeAllLink({ className }) {
-  return (
-    <Link
-      to="/events"
-      className={`h-12 items-center justify-center gap-2 rounded-pill border border-border px-5 font-ui text-[15px] font-semibold whitespace-nowrap text-heading transition-colors hover:bg-slate-100 ${className}`}
-    >
-      See all events
-      <ArrowRight aria-hidden="true" className="size-4" />
-    </Link>
-  )
-}
-
 function FeaturedEvent({ event }) {
   return (
     <article aria-labelledby="featured-event-title">
@@ -207,14 +195,11 @@ function EventsSection() {
       <SectionTape>EVENTS</SectionTape>
 
       <div className="mx-auto max-w-300 px-5 py-14 md:px-10 lg:py-20">
-        <Reveal className="flex items-end justify-between gap-8">
-          <div>
-            <p className="type-eyebrow tracking-[0.16em] text-muted">Upcoming programmes</p>
-            <h2 id="events-title" className="type-h2 mt-3 text-heading lg:type-h1 lg:mt-4">
-              What’s coming up.
-            </h2>
-          </div>
-          <SeeAllLink className="flex max-lg:hidden" />
+        <Reveal>
+          <p className="type-eyebrow tracking-[0.16em] text-muted">Upcoming programmes</p>
+          <h2 id="events-title" className="type-h2 mt-3 text-heading lg:type-h1 lg:mt-4">
+            What’s coming up.
+          </h2>
         </Reveal>
 
         <div className="mt-8 grid items-start gap-10 lg:mt-12 lg:grid-cols-[minmax(0,480px)_minmax(0,1fr)] lg:gap-14">
@@ -226,10 +211,6 @@ function EventsSection() {
             <AlsoComingUp />
           </Reveal>
         </div>
-
-        <Reveal className="mt-4 lg:hidden">
-          <SeeAllLink className="flex w-full" />
-        </Reveal>
       </div>
     </section>
   )

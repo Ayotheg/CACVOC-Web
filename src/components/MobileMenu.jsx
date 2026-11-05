@@ -88,8 +88,8 @@ function MobileMenu({ open, onClose }) {
     dialog.showModal()
     document.documentElement.style.overflow = 'hidden'
 
-    // The menu only exists below xl, so close it if the window grows past that.
-    const desktop = window.matchMedia('(min-width: 1280px)')
+    // The menu only exists below lg, so close it if the window grows past that.
+    const desktop = window.matchMedia('(min-width: 1024px)')
     const closeOnDesktop = (event) => {
       if (event.matches) onClose()
     }

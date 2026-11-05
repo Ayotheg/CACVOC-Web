@@ -120,7 +120,7 @@ function Hero() {
     <section
       id="hero"
       aria-label="Welcome"
-      className="relative isolate flex min-h-[calc(100dvh-68px)] flex-col items-center justify-center overflow-hidden bg-slate-100 px-5 py-14 text-center xl:min-h-dvh xl:pt-18"
+      className="relative isolate flex min-h-[calc(100dvh-68px)] flex-col items-center justify-center overflow-hidden bg-slate-100 px-5 py-14 text-center lg:min-h-dvh lg:pt-18"
     >
       <HeroVideo />
 

@@ -27,17 +27,17 @@ function Navbar() {
     <header
       className={`inset-x-0 top-0 z-50 border-b border-border bg-white transition-colors duration-200 ${
         scrollsAway ? 'absolute' : 'fixed'
-      } ${overHero ? 'xl:border-transparent xl:bg-transparent' : ''}`}
+      } ${overHero ? 'lg:border-transparent lg:bg-transparent' : ''}`}
     >
-      <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-2 px-5 md:px-10 xl:h-18 xl:gap-4">
+      <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-2 px-5 md:px-10 lg:h-18 lg:gap-4">
         <Brand
-          nameClass={overHero ? 'text-heading xl:text-white' : 'text-heading'}
-          subClass={overHero ? 'text-link xl:text-white' : 'text-link'}
+          nameClass={overHero ? 'text-heading lg:text-white' : 'text-heading'}
+          subClass={overHero ? 'text-link lg:text-white' : 'text-link'}
         />
 
         <nav
           aria-label="Main"
-          className={`hidden items-center gap-0.5 rounded-pill border p-1 transition-colors xl:flex ${
+          className={`hidden items-center gap-0.5 rounded-pill border p-1 transition-colors lg:flex ${
             overHero ? 'border-white/25 bg-white/10' : 'border-border bg-slate-100'
           }`}
         >
@@ -68,7 +68,7 @@ function Navbar() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 xl:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <Link
             to="/#support"
             className={`flex h-10 items-center rounded-pill border px-5 font-ui text-sm font-semibold transition-colors ${
@@ -88,7 +88,7 @@ function Navbar() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 xl:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           {/* Only while live, and dropped on the narrowest phones, where it won't fit. */}
           {isLive && (
             <Link
