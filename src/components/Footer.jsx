@@ -244,7 +244,7 @@ function Footer() {
                   aria-hidden="true"
                   className="mt-0.5 size-4 shrink-0 text-on-dark-muted max-lg:hidden"
                 />
-                +234 903 940 6625
+               +234 803 209 8097
               </li>
               <li className="flex gap-2.5">
                 <Mail
