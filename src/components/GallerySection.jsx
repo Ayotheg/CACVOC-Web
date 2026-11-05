@@ -11,6 +11,10 @@ const DANCERS = {
   src: '/gallery/web/gallery-7.webp',
   alt: 'Children dancing in white tops and black skirts on stage',
 }
+const WELCOMERS2 = {
+  src: '/gallery/web/gallery-9.webp',
+  alt: 'a young woman holding a welcome card',
+}
 const WELCOMERS = {
   src: '/gallery/web/gallery-1.webp',
   alt: 'Three young women welcoming visitors with bright signs',

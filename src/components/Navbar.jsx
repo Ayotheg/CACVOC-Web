@@ -73,19 +73,18 @@ function AboutDropdown({ link, overHero }) {
 
 function Navbar() {
   const { pathname } = useLocation()
-  // On the home page the navbar belongs to the hero: it scrolls away with it, and each
-  // section's tape takes over as the header. Other pages keep it fixed.
+  // On the home page the navbar sits over the hero. There and on Plan a Visit it scrolls away,
+  // and the tape takes over as the header. Other pages keep it fixed.
   const overHero = pathname === '/'
+  const scrollsAway = overHero || pathname === '/visit'
   const [menuOpen, setMenuOpen] = useState(false)
   const { isLive } = useLiveStatus()
 
   return (
     <header
-      className={`inset-x-0 top-0 z-50 border-b transition-colors duration-200 ${
-        overHero
-          ? 'absolute border-border bg-white xl:border-transparent xl:bg-transparent'
-          : 'fixed border-border bg-white'
-      }`}
+      className={`inset-x-0 top-0 z-50 border-b border-border bg-white transition-colors duration-200 ${
+        scrollsAway ? 'absolute' : 'fixed'
+      } ${overHero ? 'xl:border-transparent xl:bg-transparent' : ''}`}
     >
       <div className="mx-auto flex h-17 max-w-300 items-center justify-between gap-2 px-5 md:px-10 xl:h-18 xl:gap-4">
         <Brand

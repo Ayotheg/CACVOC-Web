@@ -82,7 +82,7 @@ function FeaturedEvent({ event }) {
           Event details
           <ArrowRight aria-hidden="true" className="size-4" />
         </Link>
-        {event.startDate && (
+        {event.startDate ? (
           <a
             href={calendarFileLink(event)}
             download="cac-event.ics"
@@ -91,6 +91,17 @@ function FeaturedEvent({ event }) {
             <CalendarPlus aria-hidden="true" className="size-4" />
             Add to calendar
           </a>
+        ) : (
+          // A calendar entry needs a real date, so this stays inactive until startDate is set.
+          <button
+            type="button"
+            disabled
+            title="Dates coming soon"
+            className="flex h-12 cursor-not-allowed items-center justify-center gap-2 rounded-pill border border-border px-5 font-ui text-[15px] font-semibold whitespace-nowrap text-heading opacity-50"
+          >
+            <CalendarPlus aria-hidden="true" className="size-4" />
+            Add to calendar
+          </button>
         )}
       </div>
     </article>

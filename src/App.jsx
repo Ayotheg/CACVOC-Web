@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router/dom'
 import RootLayout from './layouts/RootLayout'
 import Home from './pages/Home'
 import Placeholder from './pages/Placeholder'
+import Visit from './pages/Visit'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       { path: 'contact', element: <Placeholder title="Contact" /> },
       { path: 'live', element: <Navigate to="/#live" replace /> },
       { path: 'give', element: <Navigate to="/#support" replace /> },
-      { path: 'visit', element: <Placeholder title="Plan your visit" /> },
+      { path: 'visit', element: <Visit /> },
       // Swap for the real 404 page once it is designed.
       { path: '*', element: <Placeholder title="Page not found" /> },
     ],
