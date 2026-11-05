@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { featuredEvent } from '../data/events'
-import { hasSetHours, lagosNow, serviceVenue, weeklySchedule } from '../data/services'
+import { hasSetHours, isHappeningNow, lagosNow, serviceVenue, weeklySchedule } from '../data/services'
+import { useLiveStatus } from '../live/liveStatus'
 import { ArrowRight, CalendarPlus, Clock, MapPin } from './icons'
+import LiveDot from './LiveDot'
 import Reveal from './Reveal'
 import SectionTape from './SectionTape'
 
@@ -109,6 +111,10 @@ function FeaturedEvent({ event }) {
 }
 
 function ServiceRow({ day, service }) {
+  const { isLive } = useLiveStatus()
+  // Only offered while this service is on air, so it always leads to something to watch.
+  const onAirNow = service.livestreamed && isLive && isHappeningNow(day, service, lagosNow())
+
   return (
     <li className="flex items-center gap-3.5 py-4 lg:gap-5">
       <span className="flex size-14 shrink-0 items-center justify-center rounded-md bg-slate-100 font-numeric text-sm font-semibold text-heading lg:size-16 lg:text-base">
@@ -144,13 +150,14 @@ function ServiceRow({ day, service }) {
         </span>
       </span>
 
-      {service.livestreamed && (
+      {onAirNow && (
         <Link
           to="/#live"
-          aria-label={`Watch ${service.name} on the livestream`}
-          className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border text-heading transition-colors hover:bg-slate-100"
+          aria-label={`Watch ${service.name} live`}
+          className="flex h-11 shrink-0 items-center gap-1.5 rounded-pill bg-primary-blue pr-4 pl-3 font-ui text-sm font-semibold text-white transition-colors hover:bg-blue-600"
         >
-          <ArrowRight aria-hidden="true" className="size-4" />
+          <LiveDot />
+          Watch
         </Link>
       )}
     </li>
@@ -169,7 +176,7 @@ function AlsoComingUp() {
   return (
     <>
       <p className="type-eyebrow tracking-[0.16em] text-muted">Also coming up</p>
-      <div role="group" aria-label="Choose a day" className="mt-3 flex rounded-pill bg-slate-100 p-1">
+      <div role="group" aria-label="Choose a day" className="mt-3 flex bg-slate-100 p-1">
         {weeklySchedule.map((entry) => (
           <button
             key={entry.day}
@@ -177,7 +184,7 @@ function AlsoComingUp() {
             aria-label={entry.dayName}
             aria-pressed={entry.day === selected}
             onClick={() => setSelected(entry.day)}
-            className={`h-10 min-w-0 flex-1 cursor-pointer rounded-pill font-numeric text-[11px] font-semibold transition-colors sm:text-xs ${
+            className={`h-10 min-w-0 flex-1 cursor-pointer font-numeric text-[11px] font-semibold transition-colors sm:text-xs ${
               entry.day === selected ? 'bg-white text-heading shadow-sm' : 'text-muted hover:text-heading'
             }`}
           >
