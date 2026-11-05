@@ -196,7 +196,7 @@ function AlsoComingUp() {
 
 function EventsSection() {
   return (
-    <section id="events" aria-labelledby="events-title" className="bg-white">
+    <section id="events" aria-labelledby="events-title" className="-scroll-mt-18 bg-white">
       <SectionTape>EVENTS</SectionTape>
 
       <div className="mx-auto max-w-300 px-5 py-14 md:px-10 lg:py-20">

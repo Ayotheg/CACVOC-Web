@@ -104,7 +104,7 @@ function AboutSection() {
   const reached = usePastHero()
 
   return (
-    <section id="about" aria-labelledby="about-title" className="bg-white">
+    <section id="about" aria-labelledby="about-title" className="-scroll-mt-18 bg-white">
       <SectionTape>ABOUT US</SectionTape>
 
       <div className="mx-auto max-w-300 px-5 py-14 md:px-10 lg:py-20">

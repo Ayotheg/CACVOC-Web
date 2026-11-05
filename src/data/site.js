@@ -20,28 +20,20 @@ export const externalLinks = {
   directions: 'https://maps.app.goo.gl/aksfNzw7pAY5UepR6',
 }
 
-/* Items with `to` are routes. Items with `href` open in a new tab. */
+/* Items with `to` stay on the site: `/#id` jumps to that section of the home page, anything else
+   is its own page. Items with `href` open in a new tab. */
 export const navLinks = [
   {
     label: 'About',
     menuLabel: 'About us',
     description: 'Our story and our founder',
     icon: User,
-    to: '/about',
-    children: [
-      { label: 'Our story', to: '/about#story' },
-      { label: 'Our founder', to: '/about#founder' },
-    ],
+    to: '/#about',
   },
-  { label: 'Events', description: 'What’s coming up', icon: Calendar, to: '/events' },
-  { label: 'Gallery', description: 'Our youth in pictures', icon: ImageIcon, to: '/gallery' },
+  { label: 'Events', description: 'What’s coming up', icon: Calendar, to: '/#events' },
+  { label: 'Gallery', description: 'Our youth in pictures', icon: ImageIcon, to: '/#gallery' },
   { label: 'Projects', description: 'Give to a church project', icon: Heart, to: '/projects' },
-  {
-    label: 'Teachings',
-    description: 'Messages on YouTube',
-    icon: BookOpen,
-    href: externalLinks.teachings,
-  },
+  { label: 'Teachings', description: 'Messages on YouTube', icon: BookOpen, to: '/#teachings' },
   { label: 'Contact', description: 'Visit, call or write to us', icon: MapPin, to: '/contact' },
 ]
 
@@ -53,9 +45,9 @@ export const socialLinks = [
 
 export const footerExplore = [
   { label: 'Home', to: '/' },
-  { label: 'About us', to: '/about' },
-  { label: 'Events', to: '/events' },
-  { label: 'Gallery', to: '/gallery' },
+  { label: 'About us', to: '/#about' },
+  { label: 'Events', to: '/#events' },
+  { label: 'Gallery', to: '/#gallery' },
   { label: 'Projects', to: '/projects' },
   { label: 'Contact', to: '/contact' },
 ]

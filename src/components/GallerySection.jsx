@@ -46,7 +46,7 @@ const DRUM_SET = {
 }
 
 const TOP_ROW = [DANCERS, WELCOMERS, TALKING_DRUM, WORSHIPPER, MINISTER]
-const BOTTOM_ROW = [YOUNG_DRUMMER, PRAYER, DRUM_SET, WELCOMERS, TALKING_DRUM]
+const BOTTOM_ROW = [YOUNG_DRUMMER, PRAYER, DRUM_SET, WELCOMERS, WELCOMERS2]
 
 /* How far the images slide for each pixel scrolled on mobile. Higher means less scrolling. */
 const SLIDE_SPEED = 1.4
@@ -248,7 +248,7 @@ function ScrollRows() {
 
 function GallerySection() {
   return (
-    <section id="gallery" aria-labelledby="gallery-title" className="overflow-x-clip bg-white lg:pb-20">
+    <section id="gallery" aria-labelledby="gallery-title" className="-scroll-mt-18 overflow-x-clip bg-white lg:pb-20">
       <SectionTape>GALLERY</SectionTape>
 
       <div className="mx-auto flex max-w-300 flex-col gap-5 px-5 pt-14 md:px-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16 lg:pt-20">

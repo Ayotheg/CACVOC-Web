@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { navLinks } from '../data/site'
 import { useLiveStatus } from '../live/liveStatus'
 import { Brand } from './Brand'
-import { ArrowUpRight, ChevronDown, Menu } from './icons'
+import { ArrowUpRight, Menu } from './icons'
 import LiveDot from './LiveDot'
 import MobileMenu from './MobileMenu'
 
@@ -12,63 +12,6 @@ function linkClass({ isActive, overHero }) {
     'flex items-center gap-1 rounded-pill px-3 py-1.5 font-ui text-sm leading-5 font-medium transition-colors'
   if (overHero) return `${base} text-white hover:bg-white/15`
   return `${base} ${isActive ? 'text-coral-700' : 'text-heading'} hover:bg-white`
-}
-
-function AboutDropdown({ link, overHero }) {
-  const [open, setOpen] = useState(false)
-  const rootRef = useRef(null)
-  const { pathname } = useLocation()
-
-  useEffect(() => {
-    if (!open) return undefined
-
-    const closeOnOutsidePress = (event) => {
-      if (!rootRef.current?.contains(event.target)) setOpen(false)
-    }
-    const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setOpen(false)
-    }
-    document.addEventListener('pointerdown', closeOnOutsidePress)
-    document.addEventListener('keydown', closeOnEscape)
-
-    return () => {
-      document.removeEventListener('pointerdown', closeOnOutsidePress)
-      document.removeEventListener('keydown', closeOnEscape)
-    }
-  }, [open])
-
-  return (
-    <div ref={rootRef} className="relative">
-      <button
-        type="button"
-        aria-expanded={open}
-        onClick={() => setOpen((current) => !current)}
-        className={`${linkClass({ isActive: pathname.startsWith(link.to), overHero })} cursor-pointer`}
-      >
-        {link.label}
-        <ChevronDown
-          aria-hidden="true"
-          className={`size-4 transition-transform ${open ? 'rotate-180' : ''}`}
-        />
-      </button>
-
-      {open && (
-        <ul className="absolute top-full left-0 mt-3 w-48 rounded-md border border-border bg-white p-2 shadow-card">
-          {link.children.map((child) => (
-            <li key={child.to}>
-              <Link
-                to={child.to}
-                onClick={() => setOpen(false)}
-                className="block rounded-sm px-3 py-2 font-ui text-sm leading-5 font-medium text-heading transition-colors hover:bg-slate-100"
-              >
-                {child.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  )
 }
 
 function Navbar() {
@@ -99,9 +42,6 @@ function Navbar() {
           }`}
         >
           {navLinks.map((link) => {
-            if (link.children) {
-              return <AboutDropdown key={link.label} link={link} overHero={overHero} />
-            }
             if (link.href) {
               return (
                 <a

@@ -126,7 +126,7 @@ function Hero() {
 
       <Reveal className="flex w-full flex-col items-center">
         <p className="type-eyebrow tracking-[0.16em] text-white max-sm:text-[11px]">
-          Christ Apostolic Church · Oke-Odo
+          Christ Apostolic Church · Agbala Itura
         </p>
 
         {/* The space is reserved so the page doesn't jump as the text types and deletes. */}

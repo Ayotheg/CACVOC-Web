@@ -5,7 +5,7 @@ import SectionTape from './SectionTape'
 
 function TeachingsSection() {
   return (
-    <section id="teachings" aria-labelledby="teachings-title" className="bg-white">
+    <section id="teachings" aria-labelledby="teachings-title" className="-scroll-mt-18 bg-white">
       <SectionTape>TEACHINGS</SectionTape>
 
       <div className="mx-auto max-w-300 px-4 py-14 md:px-10 lg:py-20">
