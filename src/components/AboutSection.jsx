@@ -21,12 +21,12 @@ function usePastHero() {
   return past
 }
 
-/* Fixed to the screen from the About section to the end of the page, on large screens.
-   On smaller screens it opens from "Watch welcome". Closing it keeps it closed until reopened.
+/* Fixed to the screen from the About section to the end of the page, smaller on phones and tablets.
+   Closing it keeps it closed until "Watch welcome" reopens it.
    TODO: swap the placeholder for the real 9:16 video, speaker name and duration. */
 function WelcomeVideo({ state, reached, onClose }) {
   const visibility = {
-    default: reached ? 'hidden xl:block' : 'hidden',
+    default: reached ? 'block' : 'hidden',
     open: 'block',
     closed: 'hidden',
   }[state]
@@ -34,24 +34,24 @@ function WelcomeVideo({ state, reached, onClose }) {
   return (
     <aside
       aria-label="Welcome video"
-      className={`${visibility} fixed right-4 bottom-4 z-40 aspect-9/16 w-40 overflow-hidden rounded-lg border-4 border-white bg-slate-100 shadow-lift motion-safe:animate-rise`}
+      className={`${visibility} fixed right-3 bottom-3 z-40 aspect-9/16 w-26 overflow-hidden rounded-lg border-3 border-white bg-slate-100 shadow-lift motion-safe:animate-rise lg:right-4 lg:bottom-4 lg:w-40 lg:border-4`}
     >
-      <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-badge text-[11px] font-medium text-muted">
+      <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-1 text-center font-badge text-[10px] font-medium text-muted lg:text-[11px]">
         [Welcome video · 9:16]
       </p>
       <button
         type="button"
         aria-label="Close welcome video"
         onClick={onClose}
-        className="absolute top-2 right-2 flex size-9 cursor-pointer items-center justify-center rounded-full bg-ink/55 text-white"
+        className="absolute top-1.5 right-1.5 flex size-8 cursor-pointer lg:top-2 lg:right-2 lg:size-9 items-center justify-center rounded-full bg-ink/55 text-white"
       >
         <X aria-hidden="true" className="size-4" />
       </button>
-      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-ink/70 p-3">
-        <span className="font-subheading text-[13px] leading-4.5 font-bold text-white">
+      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-ink/70 p-2 lg:p-3">
+        <span className="font-subheading text-[11px] leading-3.5 font-bold text-white lg:text-[13px] lg:leading-4.5">
           A word of welcome
         </span>
-        <span className="font-badge text-[11px] leading-4 font-medium text-blue-100">
+        <span className="font-badge text-[10px] leading-3.5 font-medium text-blue-100 lg:text-[11px] lg:leading-4">
           [Speaker name] · [0:00]
         </span>
       </div>

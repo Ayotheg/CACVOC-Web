@@ -81,6 +81,13 @@ function MobileMenu({ open, onClose }) {
   const dialogRef = useRef(null)
   const { isLive } = useLiveStatus()
 
+  // Closes at once, before a link starts its jump: an open menu locks the page's scrolling.
+  const closeNow = () => {
+    dialogRef.current.close()
+    document.documentElement.style.overflow = ''
+    onClose()
+  }
+
   useEffect(() => {
     const dialog = dialogRef.current
     if (!open) return undefined
@@ -114,7 +121,7 @@ function MobileMenu({ open, onClose }) {
     >
       <div className="flex min-h-full flex-col">
         <div className="flex h-17 shrink-0 items-center justify-between gap-4 border-b border-border px-5">
-          <Brand onClick={onClose} />
+          <Brand onClick={closeNow} />
           <button
             type="button"
             aria-label="Close menu"
@@ -129,18 +136,18 @@ function MobileMenu({ open, onClose }) {
           <p className="type-eyebrow text-muted">Menu</p>
           <nav aria-label="Mobile" className="mt-3">
             {navLinks.map((link) => (
-              <MenuRow key={link.label} link={link} onClose={onClose} />
+              <MenuRow key={link.label} link={link} onClose={closeNow} />
             ))}
           </nav>
 
-          <LiveNowCard onClose={onClose} />
+          <LiveNowCard onClose={closeNow} />
         </div>
 
         <div className="shrink-0 border-t border-border px-5 pt-4 pb-5">
           <div className="flex gap-2.5">
             <Link
               to="/#live"
-              onClick={onClose}
+              onClick={closeNow}
               className="type-button flex h-13 flex-1 items-center justify-center gap-2 rounded-pill bg-primary-blue text-white"
             >
               {isLive && <LiveDot />}
@@ -148,7 +155,7 @@ function MobileMenu({ open, onClose }) {
             </Link>
             <Link
               to="/#support"
-              onClick={onClose}
+              onClick={closeNow}
               className="type-button flex h-13 w-30 items-center justify-center rounded-pill border border-border text-heading"
             >
               Give

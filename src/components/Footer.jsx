@@ -244,14 +244,18 @@ function Footer() {
                   aria-hidden="true"
                   className="mt-0.5 size-4 shrink-0 text-on-dark-muted max-lg:hidden"
                 />
-               +234 803 209 8097
+                <a href="tel:+2348032098097" className="text-white no-underline transition-colors hover:text-gold-300">
+                  +234 803 209 8097
+                </a>
               </li>
               <li className="flex gap-2.5">
                 <Mail
                   aria-hidden="true"
                   className="mt-0.5 size-4 shrink-0 text-on-dark-muted max-lg:hidden"
                 />
-                hello@cacvoclagos.org
+                <a href="mailto:hello@cacvoclagos.org" className="text-white no-underline transition-colors hover:text-gold-300">
+                  hello@cacvoclagos.org
+                </a>
               </li>
             </ul>
             <a
