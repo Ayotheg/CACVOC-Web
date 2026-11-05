@@ -6,7 +6,7 @@ export const churchLocation = {
   name: 'CAC Vineyard of Comfort',
   note: 'DCC Headquarters · Agege, Lagos',
   address: ['105 Old Otta Rd', 'Oke-Odo, Ile-Epo, Lagos'],
-  phone: '[Phone number]',
+  phone: '+234 903 940 6625',
   // The exact pin from the church's Google Maps listing.
   mapEmbed: 'https://www.google.com/maps?q=6.6344798,3.3025681&z=16&output=embed',
 }
@@ -14,13 +14,13 @@ export const churchLocation = {
 /* The white caption on the welcome photo. */
 export const thisSunday = {
   services: 'English Service · 6:45 AM, Yoruba Service · 9:00 AM',
-  note: 'Our welcome team will meet you',
+  note: 'Our welcome team will greet you',
 }
 
 export const firstSundaySteps = [
   {
     title: 'Arrive',
-    text: 'Come a little early. Our welcome team will meet you at the entrance and help you find a seat.',
+    text: 'Come in and find a seat. Our welcome team will greet you and answer any questions.',
   },
   {
     title: 'Worship',
@@ -52,11 +52,11 @@ export const visitQuestions = [
   },
   {
     question: 'Is there something for my children?',
-    answer: '[Children’s church details: ages, where to drop off and pick up.]',
+    answer: 'Yes, we have a children’s church for kids ages 3-12. They’ll be dropped off and picked up at designated points during the service.',
   },
   {
     question: 'Where do I park?',
-    answer: '[Parking details and any landmarks to look out for.]',
+    answer: 'Church parking is available on the premises, and there’s also street parking nearby.',
   },
   {
     question: 'Can I watch online first?',
