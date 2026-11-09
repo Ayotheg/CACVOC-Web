@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 import { Link } from 'react-router'
+import BotTrap from '../components/BotTrap'
 import { ArrowRight, Check, MapPin, Minus, Phone, Plus } from '../components/icons'
 import Reveal from '../components/Reveal'
 import SectionTape from '../components/SectionTape'
@@ -16,9 +17,9 @@ import {
 const MAX_PEOPLE = 20
 const WHEN_OPTIONS = ['This Sunday', 'Next Sunday', 'Not sure yet']
 
-/* Sends a visitor's details to the church. It only counts as saved when the server confirms it,
-   so nobody is told a seat is waiting if their details never arrived.
-   TODO: api/rsvp does not exist yet. Under `npm run dev` this pretends to work, to show the design. */
+/* Sends a visitor's details to the church (api/rsvp.js). It only counts as saved when the server
+   confirms it, so nobody is told a seat is waiting if their details never arrived.
+   `npm run dev` has no /api, so there this pretends to work, to show the design. */
 async function sendVisitDetails(details) {
   if (import.meta.env.DEV) return true
   try {
@@ -281,6 +282,7 @@ function VisitForm() {
       when,
       people,
       firstTime,
+      website: event.currentTarget.elements.website.value,
     })
     setSending(false)
 
@@ -318,6 +320,7 @@ function VisitForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+      <BotTrap />
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField
           label="Your name"

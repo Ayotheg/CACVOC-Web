@@ -9,7 +9,7 @@ export const featuredEvent = {
   // Flyer: put the image in public/events and write its path, like '/events/fasting.jpg'.
   // Set to '' to show a plain placeholder box.
   flyer: '/events/event-main.jpg',
-  flyerAlt: '', // Describe the flyer, including any important words on it.
+  flyerAlt: 'Flyer for main event', // Describe the flyer, including any important words on it.
 
   // First and last day, written YYYY-MM-DD, like '2027-01-04'.
   // The "Add to calendar" button starts working once startDate is filled in.

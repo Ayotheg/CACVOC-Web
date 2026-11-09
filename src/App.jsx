@@ -6,6 +6,11 @@ import Placeholder from './pages/Placeholder'
 import Visit from './pages/Visit'
 
 const router = createBrowserRouter([
+  // Outside the site layout and loaded on its own, so visitors never download the admin code.
+  {
+    path: '/admin',
+    lazy: async () => ({ Component: (await import('./admin/AdminPage')).default }),
+  },
   {
     path: '/',
     element: <RootLayout />,

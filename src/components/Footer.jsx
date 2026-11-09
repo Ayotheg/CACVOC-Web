@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import {
   externalLinks,
@@ -8,14 +9,49 @@ import {
 } from '../data/site'
 import { footerServices } from '../data/services'
 import { useLiveStatus } from '../live/liveStatus'
+import BotTrap from './BotTrap'
 import { Logo } from './Brand'
 import { ArrowRight, ArrowUp, ArrowUpRight, Mail, MapPin, Phone } from './icons'
 import Reveal from './Reveal'
 
 const currentYear = new Date().getFullYear()
 
-// TODO: connect both newsletter forms to the newsletter service.
-const handleSubscribe = (event) => event.preventDefault()
+const SUBSCRIBE_MESSAGES = {
+  done: 'Thank you! You’re on the list.',
+  error: 'That didn’t go through. Please check your email and try again.',
+}
+
+/* Shared by both newsletter forms. Signups go to api/subscribe.js, and only count as done when the
+   server confirms them. `npm run dev` has no /api, so there it pretends to work. */
+function useSubscribe() {
+  const [status, setStatus] = useState('idle') // idle | sending | done | error
+
+  const handleSubscribe = async (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const email = form.elements.email.value.trim()
+    const website = form.elements.website.value
+    setStatus('sending')
+
+    let ok = import.meta.env.DEV
+    if (!ok) {
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, website }),
+        })
+        ok = response.ok && (await response.json()).ok === true
+      } catch {
+        ok = false
+      }
+    }
+    setStatus(ok ? 'done' : 'error')
+    if (ok) form.reset()
+  }
+
+  return { status, handleSubscribe, message: SUBSCRIBE_MESSAGES[status] }
+}
 
 function FooterHeading({ children, className = '' }) {
   return <h2 className={`type-eyebrow text-on-dark-muted ${className}`}>{children}</h2>
@@ -100,39 +136,51 @@ function FooterBrand() {
 }
 
 function MobileNewsletter() {
+  const { status, handleSubscribe, message } = useSubscribe()
+
   return (
     <section className="mt-7 border-t border-white/15 pt-7">
       <h2 className="font-heading text-base leading-6 font-bold text-white">
         Get church updates by email
       </h2>
-      <form
-        onSubmit={handleSubscribe}
-        className="mt-3 flex h-12 items-center rounded-pill border border-white/25 bg-white/10 p-1"
-      >
-        <label htmlFor="newsletter-email-mobile" className="sr-only">
-          Email address
-        </label>
-        {/* Stays at 16px: iOS zooms the page when focusing anything smaller. */}
-        <input
-          id="newsletter-email-mobile"
-          type="email"
-          required
-          autoComplete="email"
-          placeholder="Your email"
-          className="type-input h-full min-w-0 flex-1 rounded-pill bg-transparent px-4 text-white placeholder:text-blue-300"
-        />
-        <button
-          type="submit"
-          className="h-full cursor-pointer rounded-pill bg-white px-4 font-ui text-sm font-semibold text-heading transition-colors hover:bg-blue-100"
+      <form onSubmit={handleSubscribe} className="relative mt-3">
+        <BotTrap />
+        <div className="flex h-12 items-center rounded-pill border border-white/25 bg-white/10 p-1">
+          <label htmlFor="newsletter-email-mobile" className="sr-only">
+            Email address
+          </label>
+          {/* Stays at 16px: iOS zooms the page when focusing anything smaller. */}
+          <input
+            id="newsletter-email-mobile"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="Your email"
+            className="type-input h-full min-w-0 flex-1 rounded-pill bg-transparent px-4 text-white placeholder:text-blue-300"
+          />
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="h-full cursor-pointer rounded-pill bg-white px-4 font-ui text-sm font-semibold text-heading transition-colors hover:bg-blue-100 disabled:cursor-wait disabled:opacity-70"
+          >
+            {status === 'sending' ? 'Sending…' : 'Subscribe'}
+          </button>
+        </div>
+        <p
+          role="status"
+          className="mt-2 pl-4 font-form text-xs leading-4.5 font-medium text-on-dark-muted empty:hidden"
         >
-          Subscribe
-        </button>
+          {message}
+        </p>
       </form>
     </section>
   )
 }
 
 function DesktopNewsletter() {
+  const { status, handleSubscribe, message } = useSubscribe()
+
   return (
     <section className="flex items-end justify-between gap-8 border-b border-white/15 pb-10">
       <div className="max-w-105">
@@ -143,13 +191,15 @@ function DesktopNewsletter() {
         </p>
       </div>
 
-      <form onSubmit={handleSubscribe} className="w-full max-w-100">
+      <form onSubmit={handleSubscribe} className="relative w-full max-w-100">
+        <BotTrap />
         <div className="flex gap-2">
           <label htmlFor="newsletter-email" className="sr-only">
             Email address
           </label>
           <input
             id="newsletter-email"
+            name="email"
             type="email"
             required
             autoComplete="email"
@@ -158,13 +208,14 @@ function DesktopNewsletter() {
           />
           <button
             type="submit"
-            className="h-11 cursor-pointer rounded-pill bg-white px-5 font-ui text-sm font-semibold text-heading transition-colors hover:bg-blue-100"
+            disabled={status === 'sending'}
+            className="h-11 cursor-pointer rounded-pill bg-white px-5 font-ui text-sm font-semibold text-heading transition-colors hover:bg-blue-100 disabled:cursor-wait disabled:opacity-70"
           >
-            Subscribe
+            {status === 'sending' ? 'Sending…' : 'Subscribe'}
           </button>
         </div>
-        <p className="mt-2 pl-5 font-form text-xs leading-4.5 font-medium text-on-dark-muted">
-          No spam. Unsubscribe anytime.
+        <p role="status" className="mt-2 pl-5 font-form text-xs leading-4.5 font-medium text-on-dark-muted">
+          {message ?? 'No spam. Unsubscribe anytime.'}
         </p>
       </form>
     </section>

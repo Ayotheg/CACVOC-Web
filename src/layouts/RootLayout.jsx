@@ -1,10 +1,12 @@
 import { Outlet, ScrollRestoration, useLocation } from 'react-router'
+import { usePageTracking } from '../analytics/usePageTracking'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import LiveStatusProvider from '../live/LiveStatusProvider'
 
 function RootLayout() {
   const { pathname } = useLocation()
+  usePageTracking()
 
   // The navbar is fixed, so pages start below it. The home hero runs behind it on desktop.
   const offset = pathname === '/' ? 'pt-17 lg:pt-0' : 'pt-17 lg:pt-18'
